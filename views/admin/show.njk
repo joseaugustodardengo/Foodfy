@@ -1,0 +1,65 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="recipe">
+            <div class="header">
+                <h2>Receita: {{item.title}}</h2>
+                <a href="/admin/recipes/{{id}}/edit">
+                    <button>Editar receita</button>                    
+                </a>
+            </div>
+            <div class="container">
+                <div class="header">
+                    <img src="{{item.image}}" alt="">
+                    <h1 class="title">{{item.title}}</h1>
+                    <p class="subtitle">{{item.author}}</p>
+
+                </div>
+
+                <div class="content">
+                    <div class="header">
+                        <h2>Ingredientes</h2>
+                        {# <button>ESCONDER</button> #}
+                    </div>
+                    <div class="info">
+                        <ul>
+                            {% for ingredient in item.ingredients %}
+                                <li>{{ingredient}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="header">
+                        <h2>Modo de preparo</h2>
+                        {# <button>ESCONDER</button> #}
+                    </div>
+
+                    <div class="info">
+                        <ul>
+                            {% for preparation in item.preparation %}
+                                <li>{{preparation}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="header">
+                        <h2>Informações adicionais</h2>
+                        {# <button>ESCONDER</button> #}
+                    </div>
+
+                    <div class="info">
+                        <p>{{item.information}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>   
+
+    <script src="/admin/scripts.js"></script>    
+{% endblock %}

@@ -1,0 +1,57 @@
+<div class="item">
+    <p>Imagem da receita</p>
+    <input type="url" name="image" value="{{item.image}}">
+</div>
+
+<div class="item">
+    <p>Título</p>
+    <input type="text" name="title" value="{{item.title}}">
+</div>
+
+<div class="item">
+    <p>Autor</p>
+    <input type="text" name="author" value="{{item.author}}">
+</div>
+
+<div id="ingredients" class="item">
+    <p>Ingredientes</p>
+        {% if item.ingredients%}
+            {% for ingredient in item.ingredients %}
+                <div class="ingredient">
+                        <input type="text" name="ingredients[]" value="{{ingredient}}"/>
+                        <button id="remove" type="button" class="delete">Excluir</button>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="ingredient">
+                    <input type="text" name="ingredients[]" value="{{ingredient}}"/>
+                    <button id="remove" type="button" class="delete">Excluir</button>                    
+            </div>
+        {% endif %}
+</div>
+<button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
+
+<div id="preparation" class="item">
+    <p>Modo de preparo</p>
+        {% if item.ingredients%}
+            {% for preparation in item.preparation %}
+                <div class="preparation">
+                    <input type="text" name="preparation[]" value="{{preparation}}"/>
+                    <button type="button" id="remove" class="delete">Excluir</button>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="preparation">
+                <input type="text" name="preparation[]" value="{{preparation}}"/>
+                <button id="remove" type="button" class="delete">Excluir</button>                
+            </div>
+        {% endif %}
+
+
+</div>
+<button type="button" class="add-preparation">Adicionar novo passo</button>
+
+<div class="item">
+    <p>Informações adicionais</p>
+    <textarea name="information" cols="30" rows="10">{{item.information}}</textarea>
+</div>

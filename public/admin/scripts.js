@@ -1,10 +1,10 @@
 const cards = document.querySelectorAll('.recipe-card')
 
 for (const recipeCard of cards) {
-    recipeCard.addEventListener("click", function(){
-        let recipeId = recipeCard.getAttribute("id")
-        
-        window.location.href = `/recipes/${recipeId}`
+    let recipeId = recipeCard.getAttribute("id")
+    let button = recipeCard.querySelector('button')
+    button.addEventListener("click", function(){        
+        window.location.href = `/admin/recipes/${recipeId}`
     })
 }
 
@@ -16,4 +16,5 @@ for(item of menuItems){
         item.classList.add("active")
     }
 }
+
 

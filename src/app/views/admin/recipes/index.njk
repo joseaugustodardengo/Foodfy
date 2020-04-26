@@ -1,0 +1,41 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="recipes">
+            <div class="header">
+                <h2>Gerenciar receitas</h2>
+                <a href="/admin/recipes/create">
+                    <button>
+                        Nova receita
+                    </button>
+                </a>
+
+            </div>
+            <div class="container">
+                <div class="cards">
+                    {% for item in items %}
+                        <div id="{{item.id}}" class="recipe-card">
+                            <img src="{{item.image}}" alt="Imagem de {{item.title}}" class="image">
+                            <div class="info">
+                                <h3 class="title">{{item.title}}</h3>
+                                <p class="subtitle">{{item.chef_name}}</p>
+                                <button>Visualizar</button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="pagination"
+        data-page={{pagination.page}}
+        data-total={{pagination.total}}
+    ></div>
+
+    <script src="/admin/scripts.js"></script>
+    <script src="/admin/pagination.js"></script>
+
+{% endblock %}

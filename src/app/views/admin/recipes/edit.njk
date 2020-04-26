@@ -1,5 +1,5 @@
 {% extends "admin/layout.njk" %}
-
+ 
 {% block content %}
 
     <main>
@@ -13,12 +13,12 @@
             </div>
 
             <form action="/admin/recipes?_method=PUT" method="POST" id="update">
-                <input type="hidden" name="id" value="{{id}}">
-                {%include 'admin/fields.njk'%}
+                <input type="hidden" name="id" value="{{item.id}}">
+                {%include 'admin/recipes/fields.njk'%}
             </form>
 
             <form action="/admin/recipes?_method=DELETE" method="POST" id="delete">
-                <input type="hidden" name="id" value="{{id}}">            
+                <input type="hidden" name="id" value="{{item.id}}">            
             </form>
 
         </section>
@@ -27,4 +27,5 @@
     <script src="/admin/add-ingredient.js"></script>
     <script src="/admin/remove-field.js"></script>
     <script src="/admin/add-preparation.js"></script>
+    <script src="/admin/confirm-delete.js"></script>
 {% endblock %}

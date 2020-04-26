@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Foody</title>
 
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/site/styles.css">
     
 </head>
 <body>
     <header>
-        <a href="/"><img src="/logo.png" alt=""></a>        
+        <a href="/"><img src="/site/logo.png" alt=""></a>        
         <nav class="menu">
             <ul>
                 <li>
@@ -20,10 +20,18 @@
                     <a href="/recipes">Receitas</a>
                 </li>                                
                 <li>
+                    <a href="/chefs">Chefs</a>
+                </li>                                
+                <li>
                     <a href="/admin/recipes">Admin</a>
                 </li>                                
             </ul>
         </nav>
+
+        <form action="/" method="GET">
+            <input type="text" name="search" placeholder="Buscar uma receita">
+            <button type="submit">Buscar</button>
+        </form>
     </header>
 
     {% block content %}
@@ -34,7 +42,7 @@
         <p>© Todos direitos reservados, receitas Foodfy.</p>
     </footer>
     
-    <script src="/scripts.js"></script>
+    <script src="/site/scripts.js"></script>
 </body>
 
 </html>

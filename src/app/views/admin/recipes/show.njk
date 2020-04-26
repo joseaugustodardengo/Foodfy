@@ -6,7 +6,7 @@
         <section class="recipe">
             <div class="header">
                 <h2>Receita: {{item.title}}</h2>
-                <a href="/admin/recipes/{{id}}/edit">
+                <a href="/admin/recipes/{{item.id}}/edit">
                     <button>Editar receita</button>                    
                 </a>
             </div>
@@ -14,7 +14,7 @@
                 <div class="header">
                     <img src="{{item.image}}" alt="">
                     <h1 class="title">{{item.title}}</h1>
-                    <p class="subtitle">{{item.author}}</p>
+                    <p class="subtitle">{{item.chef_name}}</p>
 
                 </div>
 

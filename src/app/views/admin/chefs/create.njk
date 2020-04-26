@@ -1,0 +1,20 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="chef">
+            <div class="header">
+                <h2>Criando chef</h2>
+                {# <div class="buttons">                                     #}
+                <button type="submit" form="create">Salvar chef</button>
+                {# </div> #}
+            </div>
+
+            <form action="/admin/chefs" method="POST" id="create">                
+                {%include 'admin/chefs/fields.njk'%}                
+            </form>
+        </section>
+    </main>
+
+{% endblock %}

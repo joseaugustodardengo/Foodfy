@@ -1,7 +1,7 @@
 {% extends "site/layout.njk" %}
 
 {% block content %}
-
+ 
     <main>
         <section class="banner">
             <div class="container">
@@ -11,7 +11,7 @@
                         com receitas criadas por profissionais
                         do mundo inteiro.</p>
                 </div>
-                <img src="/chef.png" alt="" class="banner-image">
+                <img src="/site/chef.png" alt="" class="banner-image">
             </div>
         </section>
     
@@ -24,7 +24,7 @@
                         <div class="recipe-card">
                             <img src="{{item.image}}" alt="Imagem de {{item.image}}" class="image">
                             <h3 class="title">{{item.title}}</h3>
-                            <p class="subtitle">{{item.author}}</p>                    
+                            <p class="subtitle">{{item.chef_name}}</p>                    
                         </div>
                     {% endfor %}                                     
                     

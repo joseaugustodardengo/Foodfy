@@ -1,0 +1,26 @@
+{% extends "site/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="chefs">
+            <div class="container">
+                <div class="cards">
+                    {% for item in items %}
+                        <div id="{{item.id}}" class="chef-card">
+                            <img src="{{item.avatar_url}}" alt="Imagem de {{item.name}}" class="image">
+                            <div class="info">
+                                <h3 class="title">{{item.name}}</h3>
+                                <p class="subtitle">Receitas {{item.total_recipes}}</p>                                              
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+    </main>
+
+    <script src="/scripts.js"></script>
+{% endblock %}

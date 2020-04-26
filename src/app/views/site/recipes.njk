@@ -1,0 +1,29 @@
+{% extends "site/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="recipes">
+            <div class="container">
+                <div class="cards">
+                {% for item in items %}                    
+                    <div id="{{item.id}}" class="recipe-card">
+                        <img src="{{item.image}}" alt="Imagem de {{item.title}}" class="image">
+                        <h3 class="title">{{item.title}}</h3>
+                        <p class="subtitle">{{item.chef_name}}</p>                  
+
+                    </div>
+                {% endfor %}                                     
+                </div>
+            </div>
+        </section>        
+    </main>
+
+    <div class="pagination"
+        data-page={{pagination.page}}
+        data-total={{pagination.total}}        
+    ></div>
+
+    <script src="/site/scripts.js"></script>
+    <script src="/site/pagination.js"></script>
+    {% endblock %}

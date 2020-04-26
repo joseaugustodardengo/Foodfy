@@ -1,14 +1,14 @@
 {% extends "site/layout.njk" %}
-
+ 
 {% block content %}
 
     <main>
         <section class="recipe">
             <div class="container">
                 <div class="header">
-                    <img src="{{item.image}}" alt="">
+                    <img src="{{item.image}}" alt="Imagem de {{item.title}}">
                     <h1 class="title">{{item.title}}</h1>
-                    <p class="subtitle">{{item.author}}</p>
+                    <p class="subtitle">{{item.chef_name}}</p>
 
                 </div>
 
@@ -55,5 +55,5 @@
         </section>
     </main>   
 
-    <script src="/show-recipes.js"></script>
+    <script src="/site/show-recipes.js"></script>
 {% endblock %}

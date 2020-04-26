@@ -1,0 +1,35 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="chefs">
+            <div class="header">
+                <h2>Gerenciar chefs</h2>
+                <a href="/admin/chefs/create">
+                    <button>
+                        Novo chef
+                    </button>
+                </a>
+
+            </div>
+            <div class="container">
+                <div class="cards">
+                    {% for item in items %}
+                        <div id="{{item.id}}" class="chef-card">
+                            <img src="{{item.avatar_url}}" alt="Imagem de {{item.name}}" class="image">
+                            <div class="info">
+                                <h3 class="title">{{item.name}}</h3>
+                                {# <p class="subtitle">Receitas {{item.total_recipes}}</p>                             #}
+                                <button>Visualizar</button>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/admin/scripts-chef.js"></script>
+{% endblock %}

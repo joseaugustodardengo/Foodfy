@@ -9,35 +9,13 @@
     
 </head>
 <body>
-    <header>
-        <div>
-            <a href="/admin"><img src="/admin/logo-white.png" alt=""></a>        
-            <nav class="menu">
-                <ul>                
-                    <li>
-                        <a href="/admin/recipes">Receitas</a>
-                    </li>                                                            
-                    <li>
-                        <a href="/admin/chefs">Chefs</a>
-                    </li>                                            
-                    <li>
-                        <a href="/">Site</a>
-                    </li>                                            
-                </ul>
-            </nav>
-        
-        </div>
-    </header>
+    {% include "admin/parts/header.njk"%}
 
     {% block content %}
     
     {% endblock %}
 
-    <footer>
-        <p>© Todos direitos reservados, receitas Foodfy.</p>
-    </footer>
-
-    <script src="/admin/scripts.js"></script>    
+    {% include "admin/parts/footer.njk"%}  
 
 </body>
 

@@ -1,14 +1,13 @@
 const { date } = require('../../lib/utils')
 const Chef = require('../models/Chef')
-const Recipe = require('../models/Recipe')
 
 module.exports = {
   
     //Mostrar a lista de chefs
-    index(req, res) {
-        Chef.all(function(chefs){
-            return res.render("admin/chefs/index", { items: chefs })
-        })           
+    async index(req, res) {
+        const results = await Chef.all()
+        const chefs = results.rows        
+        return res.render("admin/chefs/index", { items: chefs })                 
     },
 
     //Formulario de novo chef
@@ -17,28 +16,31 @@ module.exports = {
     },
 
     //Exibir detalhes do chef
-    show(req, res) {
-        Chef.find(req.params.id, function(chef){
-            if (!chef) return res.send('Chef not found')
-            
-            Chef.findRecipes(req.params.id, function(recipes){
-                    return res.render("admin/chefs/show", { item: chef, items:recipes })            
-            })            
-        })    
+    async show(req, res) {
+        let results = await Chef.find(req.params.id)
+        const chef = results.rows[0]
+
+        if (!chef) return res.send('Chefe não encontrado')  
+        
+        results = await Chef.findRecipes(req.params.id)
+        const recipes = results.rows
+        
+        return res.render("admin/chefs/show", { item: chef, items:recipes })            
     },
 
     //Mostrar formulario de edição de chef
-    edit(req, res) {
+    async edit(req, res) {
+        const results = await Chef.find(req.params.id)
+        const chef = results.rows[0]
 
-        Chef.find(req.params.id, function(chef){
-            if (!chef) return res.send('Chef not found')
-            
-            return res.render("admin/chefs/edit", { item: chef })            
-        })
+        if (!chef) return res.send('Chefe não encontrado')
+        
+        return res.render("admin/chefs/edit", { item: chef })            
+       
     },
 
     //Armazenar o chef
-    store(req, res) {
+    async store(req, res) {
         const keys = Object.keys(req.body)
         
         for (key of keys) {
@@ -53,13 +55,15 @@ module.exports = {
             date(Date.now()).iso
         ]
 
-        Chef.create(values,function(chef){
-            return res.redirect(`/admin/chefs/${chef.id}`)
-        })
+        const results = await Chef.create(values)
+        const chefId = results.rows[0].id
+       
+        return res.redirect(`/admin/chefs/${chefId}`)
+       
     },
 
     //Atualizar chef
-    update(req, res) {
+    async update(req, res) {
 
         const values = [        
             req.body.name,
@@ -67,18 +71,24 @@ module.exports = {
             req.body.id
         ]
 
-        Chef.update(values,function(){
-            return res.redirect(`/admin/chefs/${req.body.id}`)
-        })
+        await Chef.update(values)
+
+        return res.redirect(`/admin/chefs/${req.body.id}`)        
     },
 
     //Deletar chef
-    destroy(req, res) {
-        const { id } = req.body
+    async destroy(req, res) {
+        const { id } = req.body   
         
-        Chef.delete(id,function(){
-            return res.redirect(`/admin/chefs`)
-        })
+        let results = await Chef.find(id)
+        const chef = results.rows[0]
+
+        if(chef.total_recipes == 0 ){
+            await Chef.delete(id)
+            return res.redirect(`/admin/chefs`)            
+        } else {            
+            return res.render("admin/chefs/edit", { item:chef, mensagem: "Esse chef possui receitas e não pode ser deletado. Delete as receitas antes e retorne para deletar o chefe."})
+        }        
 
     }
 }

@@ -66,10 +66,10 @@ module.exports = {
         Recipe.paginate(params)         
     },
 
-    chefs(req, res) {
-        Chef.all(function(chefs){
-            return res.render("site/chefs", { items: chefs })
-        })
+    async chefs(req, res) {
+        const chefs = await Chef.all()
+        const items = chefs.rows        
+        return res.render("site/chefs", { items })  
     },
 
     //Mostra o detalhe da receita

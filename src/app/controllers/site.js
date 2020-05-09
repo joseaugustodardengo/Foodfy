@@ -3,7 +3,7 @@ const Chef = require('../models/Chef')
 
 module.exports = {
     //Mostrar pagina inicial
-    home(req, res) {        
+    async home(req, res) {        
         let { search, page, limit } = req.query
 
         if(search || page || limit){
@@ -30,9 +30,9 @@ module.exports = {
             Recipe.paginate(params)
 
         } else {
-            Recipe.all(function(recipes){
-                return res.render("site/index", { items: recipes })
-            })
+            let results = await Recipe.all()
+            const recipes = results.rows            
+            return res.render("site/index", { items: recipes })            
         }
 
     },
@@ -48,7 +48,7 @@ module.exports = {
         
         page = page || 1
         limit = limit || 2
-        let offset = limit * (page - 1)
+        let offset = limit * (page - 1)        
 
         const params = {
             page, 
@@ -63,7 +63,6 @@ module.exports = {
                 return res.render("site/recipes", { items: recipes, pagination })
             }
         }
-
         Recipe.paginate(params)         
     },
 
@@ -74,14 +73,16 @@ module.exports = {
     },
 
     //Mostra o detalhe da receita
-    show(req, res) {        
+    async show(req, res) {        
         const id = req.params.id
+
+        const results = await Recipe.find(id)
+        const recipe = results.rows[0]
         
-        Recipe.find(id, function(recipe){
-            if (!recipe) return res.send('Recipe not found')
-            
-            return res.render("site/show", { item: recipe })            
-        })
+        if (!recipe) return res.send('Receita não encontrada')
+        
+        return res.render("site/show", { item: recipe })        
+        
     }
 
 }

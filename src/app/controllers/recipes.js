@@ -31,40 +31,43 @@ module.exports = {
     },
 
     //Formulario de nova receita
-    create(req, res) {
-        Recipe.chefsSelectOptions(function(options){
-            return res.render("admin/recipes/create", {chefOptions: options})
-        })
+    async create(req, res) {
+        const results = await Recipe.chefsSelectOptions()
+        const options = results.rows
 
+        return res.render("admin/recipes/create", {chefOptions: options})
     },
 
     //Exibir detalhes da receita
-    show(req, res) {
+    async show(req, res) {
         const id = req.params.id
+
+        const results = await Recipe.find(id)
+        const recipe = results.rows[0]
         
-        Recipe.find(id, function(recipe){
-            if (!recipe) return res.send('Recipe not found')
-            
-            return res.render("admin/recipes/show", { item: recipe })            
-        })
+        if (!recipe) return res.send('Receita não encontrada')
+        
+        return res.render("admin/recipes/show", { item: recipe })                    
     },
 
     //Mostrar formulario de edição de receita
-    edit(req, res) {
+    async edit(req, res) {
         const id = req.params.id
-    
-        Recipe.find(id, function(recipe){
-            if (!recipe) return res.send('Recipe not found')
 
-            Recipe.chefsSelectOptions(function(options){
-                return res.render("admin/recipes/edit", {item: recipe, chefOptions: options})
-            })
-        })
+        let results = await Recipe.find(id)
+        const recipe = results.rows[0]
+        
+        if (!recipe) return res.send('Receita não encontrada')
+
+        results = await Recipe.chefsSelectOptions()
+        const options = results.rows
+        
+        return res.render("admin/recipes/edit", {item: recipe, chefOptions: options})           
         
     },
 
     //Armazenar a receita
-    store(req, res) {
+    async store(req, res) {
         const keys = Object.keys(req.body)
         
         for (key of keys) {
@@ -83,13 +86,15 @@ module.exports = {
             date(Date.now()).iso
         ]
 
-        Recipe.create(values,function(recipe){
-            return res.redirect(`/admin/recipes/${recipe.id}`)
-        })        
+        const results = await Recipe.create(values)
+        const recipeId = results.rows[0].id
+
+        return res.redirect(`/admin/recipes/${recipeId}`)
+               
     },
 
     //Atualizar receita
-    update(req, res) {
+    async update(req, res) {
         
         const values = [        
             req.body.author,
@@ -101,18 +106,19 @@ module.exports = {
             req.body.id
         ]
 
-        Recipe.update(values,function(){
-            return res.redirect(`/admin/recipes/${req.body.id}`)
-        })
+        await Recipe.update(values)        
+
+        return res.redirect(`/admin/recipes/${req.body.id}`)
+        
     },
 
     //Deletar receita
-    destroy(req, res) {
+    async destroy(req, res) {
         const { id } = req.body
+
+        await Recipe.delete(id)
         
-        Recipe.delete(id,function(){
-            return res.redirect(`/admin/recipes`)
-        })
+        return res.redirect(`/admin/recipes`)
         
     }
 }

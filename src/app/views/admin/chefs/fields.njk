@@ -5,27 +5,24 @@
 
 <div class="item">
     <p>Avatar</p>
-    {% if item %}
-        <input type="url" name="avatar" value="{{item.avatar_url}}">
-    {% endif %}
 
     <div class="photos">
         <div id="photos-upload">
             <i class="material-icons">add
-                <input 
-                    id="photos-input" 
-                    type="file" 
-                    name="photos" 
-                    multiple 
-                    accept="image/*"
-                    onchange="PhotosUpload.handleFileInput(event)"
-                >            
+                <input id="photos-input" type="file" name="photos" multiple="multiple" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
             </i>
-            
+
         </div>
 
-        <div id="photos-preview"></div>
+        <div id="photos-preview">
+            {% if image %}
+                <div class="photo" id="{{image.id}}">
+                    <img src="{{image.path}}" alt="{{image.name}}">
+                    <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+                </div>
+                <input type="hidden" name="removed_files">
+            {% endif %}
+        </div>
     </div>
-    
-</div>
 
+</div>

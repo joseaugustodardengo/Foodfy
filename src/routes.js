@@ -1,6 +1,6 @@
 const express = require('express')
 const routes = express.Router()
-
+const multer = require('./app/middlewares/multer')
 const recipes = require("./app/controllers/recipes")
 const chefs = require("./app/controllers/chefs")
 const site = require("./app/controllers/site")
@@ -31,8 +31,8 @@ routes.get("/admin/chefs", chefs.index) // Mostrar a lista de receitas
 routes.get("/admin/chefs/create", chefs.create) // Mostrar formulário de nova receita
 routes.get("/admin/chefs/:id", chefs.show) // Exibir detalhes de uma receita
 routes.get("/admin/chefs/:id/edit", chefs.edit) // Mostrar formulário de edição de receita
-routes.post("/admin/chefs", chefs.store) // Armazenar nova receita
-routes.put("/admin/chefs", chefs.update); // Atualizar receita
+routes.post("/admin/chefs",multer.single("photos", 1), chefs.store) // Armazenar nova receita
+routes.put("/admin/chefs",multer.single("photos", 1), chefs.update); // Atualizar receita
 routes.delete("/admin/chefs", chefs.destroy); // Deletar receita
 
 

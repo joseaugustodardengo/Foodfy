@@ -16,7 +16,19 @@ module.exports = {
                 page, 
                 limit, 
                 offset,
-                callback(recipes) {
+                async callback(recipes) {
+                    async function getImage(recipeId) {
+                        let results = await Recipe.files(recipeId)
+                    
+                        return results.rows[0]
+                    }
+            
+                    const filesPromiseRecipeFiles = recipes.map(async recipe => {
+                        recipe.file = await getImage(recipe.id)
+                        return recipe
+                    })
+                    
+                    await Promise.all(filesPromiseRecipeFiles)
 
                     const pagination = {
                         total: Math.ceil(recipes[0].total / limit),
@@ -32,7 +44,21 @@ module.exports = {
         } else {
             let results = await Recipe.all()
             const recipes = results.rows            
-            return res.render("site/index", { items: recipes })            
+
+            async function getImage(recipeId) {
+                let results = await Recipe.files(recipeId)
+            
+                return results.rows[0]
+            }
+    
+            const filesPromiseRecipeFiles = recipes.map(async recipe => {
+                recipe.file = await getImage(recipe.id)
+                return recipe
+            })
+            
+            const filesPromise = await Promise.all(filesPromiseRecipeFiles)
+
+            return res.render("site/index", { items: filesPromise })            
         }
 
     },
@@ -43,7 +69,7 @@ module.exports = {
     },
 
     //Mostrar a lista de receitas
-    index(req, res) {
+    async index(req, res) {
         let { page, limit } = req.query
         
         page = page || 1
@@ -54,7 +80,20 @@ module.exports = {
             page, 
             limit, 
             offset,
-            callback(recipes) {
+            async callback(recipes) {
+
+                async function getImage(recipeId) {
+                    let results = await Recipe.files(recipeId)
+                
+                    return results.rows[0]
+                }
+        
+                const filesPromiseRecipeFiles = recipes.map(async recipe => {
+                    recipe.file = await getImage(recipe.id)
+                    return recipe
+                })
+                
+                await Promise.all(filesPromiseRecipeFiles)
 
                 const pagination = {
                     total: Math.ceil(recipes[0].total / limit),
@@ -76,12 +115,18 @@ module.exports = {
     async show(req, res) {        
         const id = req.params.id
 
-        const results = await Recipe.find(id)
+        let results = await Recipe.find(id)
         const recipe = results.rows[0]
         
         if (!recipe) return res.send('Receita não encontrada')
+
+        results = await Recipe.files(recipe.id)
+        let files = results.rows
+        files = files.map(file =>({
+            ...file
+        }))
         
-        return res.render("site/show", { item: recipe })        
+        return res.render("site/show", { item: recipe, files })        
         
     }
 

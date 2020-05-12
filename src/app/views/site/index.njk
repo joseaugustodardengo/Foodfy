@@ -22,7 +22,7 @@
                     
                     {% for item in items.slice(0, 6) %}                    
                         <div class="recipe-card">
-                            <img src="{{item.image}}" alt="Imagem de {{item.image}}" class="image">
+                            <img src="{{item.file.path}}" alt="Imagem de {{item.image}}" class="image">
                             <h3 class="title">{{item.title}}</h3>
                             <p class="subtitle">{{item.chef_name}}</p>                    
                         </div>

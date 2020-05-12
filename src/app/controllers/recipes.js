@@ -1,33 +1,28 @@
-const { date } = require('../../lib/utils')
 const Recipe = require('../models/Recipe')
 const File = require('../models/File')
  
 module.exports = {
 
     //Mostrar a lista de receitas
-    index(req, res) {    
-        let { page, limit } = req.query
+    async index(req, res) {  
+        let results = await Recipe.all()
+        const recipes = results.rows
+    
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
         
-        page = page || 1
-        limit = limit || 2
-        let offset = limit * (page - 1)
-
-        const params = {
-            page, 
-            limit, 
-            offset,
-            callback(recipes) {
-
-                const pagination = {
-                    total: Math.ceil(recipes[0].total / limit),
-                    page
-                }
-                return res.render("admin/recipes/index", { items: recipes, pagination })
-                
-            }
+            return results.rows[0]
         }
 
-        Recipe.paginate(params)
+        const filesPromiseRecipeFiles = recipes.map(async recipe => {
+            recipe.file = await getImage(recipe.id)
+            return recipe
+        })
+        
+        const filesPromise = await Promise.all(filesPromiseRecipeFiles)  
+        
+                    
+        return res.render("admin/recipes/index", { items: filesPromise })       
         
     },
 
@@ -43,12 +38,18 @@ module.exports = {
     async show(req, res) {
         const id = req.params.id
 
-        const results = await Recipe.find(id)
+        let results = await Recipe.find(id)
         const recipe = results.rows[0]
         
         if (!recipe) return res.send('Receita não encontrada')
+
+        results = await Recipe.files(recipe.id)
+        let files = results.rows
+        files = files.map(file =>({
+            ...file
+        }))
         
-        return res.render("admin/recipes/show", { item: recipe })                    
+        return res.render("admin/recipes/show", { item: recipe, files })                    
     },
 
     //Mostrar formulario de edição de receita
@@ -111,7 +112,7 @@ module.exports = {
         }))
         await Promise.all(filesPromiseRecipeFiles)
 
-        return res.redirect(`/admin/recipes/${recipeId}/edit`)
+        return res.redirect(`/admin/recipes/${recipeId}`)
                
     },
 

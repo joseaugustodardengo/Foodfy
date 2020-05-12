@@ -16,8 +16,8 @@
             <div class="container">
                 <div class="cards">
                     {% for item in items %}
-                        <div id="{{item.id}}" class="recipe-card">
-                            <img src="{{item.image}}" alt="Imagem de {{item.title}}" class="image">
+                        <div id="{{item.id}}" class="recipe-card">                            
+                            <img src="{{item.file.path}}" alt="Imagem de {{item.title}}" class="image">
                             <div class="info">
                                 <h3 class="title">{{item.title}}</h3>
                                 <p class="subtitle">{{item.chef_name}}</p>

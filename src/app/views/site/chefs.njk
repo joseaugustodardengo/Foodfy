@@ -8,7 +8,7 @@
                 <div class="cards">
                     {% for item in items %}
                         <div id="{{item.id}}" class="chef-card">
-                            <img src="{{item.avatar_url}}" alt="Imagem de {{item.name}}" class="image">
+                            <img src="{{item.path}}" alt="Imagem de {{item.name}}" class="image">
                             <div class="info">
                                 <h3 class="title">{{item.name}}</h3>
                                 <p class="subtitle">Receitas {{item.total_recipes}}</p>                                              

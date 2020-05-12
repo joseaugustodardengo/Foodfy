@@ -26,7 +26,7 @@
                         {% for recipe in items %}
                             {% if item.total_recipes != 0 %}
                                 <div id="{{recipe.id}}" class="recipe-card">
-                                    <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}" class="image">
+                                    <img src="{{recipe.file.path}}" alt="Imagem de {{recipe.title}}" class="image">
                                     <div class="info">
                                         <h3 class="title">{{recipe.title}}</h3>
                                         <p class="subtitle">{{item.name}}</p>

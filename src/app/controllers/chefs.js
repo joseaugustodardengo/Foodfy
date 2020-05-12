@@ -1,5 +1,6 @@
 const { date } = require('../../lib/utils')
 const Chef = require('../models/Chef')
+const Recipe = require('../models/Recipe')
 const File = require('../models/File')
 
 module.exports = {
@@ -26,7 +27,20 @@ module.exports = {
         results = await Chef.findRecipes(req.params.id)
         const recipes = results.rows
 
-        return res.render("admin/chefs/show", { item: chef, items: recipes })
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
+        
+            return results.rows[0]
+        }
+
+        const filesPromiseRecipeFiles = recipes.map(async recipe => {
+            recipe.file = await getImage(recipe.id)
+            return recipe
+        })
+        
+        const filesPromise = await Promise.all(filesPromiseRecipeFiles) 
+
+        return res.render("admin/chefs/show", { item: chef, items: filesPromise })
     },
 
     //Mostrar formulario de edição de chef

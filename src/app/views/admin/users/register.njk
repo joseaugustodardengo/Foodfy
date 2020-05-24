@@ -1,0 +1,17 @@
+{% extends "admin/layout.njk" %}
+{% import "admin/parts/section-user.njk" as section %}
+
+{% block content %}
+
+    <main>
+    {% if user.id %}
+        {{section.user('Atualizar','update','delete', 'Deletar', '?_method=PUT','?_method=DELETE', users)}}
+    {% endif %}
+
+        {{section.user('Criar','create','cancel','Cancelar','','', users)}}
+
+    </main>
+    
+    <script src="/admin/confirm-delete.js"></script>
+    <script src="/admin/scripts-user.js"></script>
+{% endblock %}

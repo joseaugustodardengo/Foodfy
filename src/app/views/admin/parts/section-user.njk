@@ -1,0 +1,25 @@
+{% macro user(optionUser, class, classes, nameButton, methodPut, methodDelete, item) %}
+
+<section class="user">
+    <div class="header">
+        <h2>{{optionUser}} usuário</h2>
+        <div class="buttons">
+            <button form="{{classes}}" type="submit" class="{{classes}}">{{nameButton}}</button>
+            <button form="{{class}}" type="submit">Salvar</button>
+        </div>
+    </div>
+
+    <form action='/admin/users{{methodPut}}' method="POST" id="{{class}}">
+        <input type="hidden" name="id" value="{{item.id}}">
+        {%include 'admin/users/fields.njk'%}                
+    </form>
+
+    <form action="/admin/users{{methodDelete}}" method="POST" id="{{classes}}">
+        <input type="hidden" name="id" value="{{item.id}}">
+    </form>
+
+</section>
+
+
+{% endmacro %}
+

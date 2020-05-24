@@ -625,7 +625,6 @@ form .item #photos-preview img {
     margin-right: 10px;
 }
 
-/* .radio-user, */
 .input-user {
     display: flex;
     width: 100%;
@@ -646,6 +645,10 @@ form .item #photos-preview img {
     margin-right: 10px;    
 }
 
+/*PÁGINA DE PROFILE*/
+.user .item input[type="password"] {
+    width: 465px;
+}
 
 /* FOOTER */
 footer {    

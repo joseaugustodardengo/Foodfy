@@ -11,7 +11,13 @@
 
     <form action='/admin/users{{methodPut}}' method="POST" id="{{class}}">
         <input type="hidden" name="id" value="{{item.id}}">
-        {%include 'admin/users/fields.njk'%}                
+        {%include 'admin/users/fields.njk'%}      
+
+        <div class="radio-user">
+            <div class="item">        
+                <input type="radio" id="admin" name="admin" value="false">Administrador        
+            </div>
+        </div>          
     </form>
 
     <form action="/admin/users{{methodDelete}}" method="POST" id="{{classes}}">

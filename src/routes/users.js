@@ -4,6 +4,8 @@ const routes = express.Router()
 const session = require('../app/controllers/session')
 const users = require('../app/controllers/users')
 
+const Validator = require('../app/validators/user')
+
 /*
 
 // login/logout
@@ -21,10 +23,8 @@ routes.post('/password-reset',session.reset) //armazenar os dados do formulario 
 // Rotas que o administrador irá acessar para gerenciar usuários
 routes.get('/register', users.registerForm) //formulario de usuario, tanto
 // routes.get('/', users.index) //Mostrar a lista de usuários cadastrados
-// routes.post('/', users.store) //Cadastrar um usuário
+routes.post('/', Validator.store, users.store) //Cadastrar um usuário
 // routes.put('/', users.put) // Editar um usuário
 // routes.delete('/', users.destroy) // Deletar um usuário
-
-
 
 module.exports = routes

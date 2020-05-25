@@ -631,6 +631,12 @@ form .item #photos-preview img {
     justify-content: space-between;    
 }
 
+.error-fields{
+    color: #e74c3c; 
+    font-weight: bold;
+    margin-top: 10px;   
+}
+
 .input-user .item {
     width: 100%;
 }

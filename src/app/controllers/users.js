@@ -6,5 +6,15 @@ module.exports = {
         } catch (error) {
             
         }
+    },
+
+    async store(req, res) {
+        try {
+            
+            return res.send('Passou')
+            
+        } catch (error) {
+            console.error(error)
+        }
     }
 }

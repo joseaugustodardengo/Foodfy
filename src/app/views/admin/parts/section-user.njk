@@ -1,4 +1,4 @@
-{% macro user(optionUser, class, classes, nameButton, methodPut, methodDelete, item) %}
+{% macro user(optionUser, class, classes, nameButton, methodPut, methodDelete, user) %}
 
 <section class="user">
     <div class="header">
@@ -10,7 +10,7 @@
     </div>
 
     <form action='/admin/users{{methodPut}}' method="POST" id="{{class}}">
-        <input type="hidden" name="id" value="{{item.id}}">
+        <input type="hidden" name="id" value="{{user.id}}">
         {%include 'admin/users/fields.njk'%}      
 
         <div class="radio-user">
@@ -21,7 +21,7 @@
     </form>
 
     <form action="/admin/users{{methodDelete}}" method="POST" id="{{classes}}">
-        <input type="hidden" name="id" value="{{item.id}}">
+        <input type="hidden" name="id" value="{{user.id}}">
     </form>
 
 </section>

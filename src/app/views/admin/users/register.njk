@@ -5,9 +5,9 @@
 
     <main>
     {% if user.id %}
-        {{section.user('Atualizar','update','delete', 'Deletar', '?_method=PUT','?_method=DELETE', users)}}
+        {{section.user('Atualizar','update','delete', 'Deletar', '?_method=PUT','?_method=DELETE', user)}}
     {%else%}
-        {{section.user('Criar','create','cancel','Cancelar','','', users)}}    
+        {{section.user('Criar','create','cancel','Cancelar','','', user)}}    
     {% endif %}
 
     </main>

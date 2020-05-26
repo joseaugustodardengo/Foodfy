@@ -5,7 +5,10 @@ async function store(req, res, next) {
 
     for (key of keys) {
         if (req.body[key] == "")
-            return res.send('Por favor, preencha todos os campos.')
+            return res.render('admin/users/register', {
+                user: req.body,
+                error: 'Por favor, preencha todos os campos.'
+            })
     }
 
     let { email } = req.body
@@ -14,7 +17,10 @@ async function store(req, res, next) {
         where: { email }        
     })
 
-    if (user) return res.send('Usuário existe')    
+    if (user) return res.render('admin/users/register', {
+        user: req.body,
+        error: 'Usuário já cadastrado.'
+    })
 
     next()
 }

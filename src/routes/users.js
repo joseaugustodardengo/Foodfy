@@ -21,10 +21,11 @@ routes.post('/password-reset',session.reset) //armazenar os dados do formulario 
 */
 
 // Rotas que o administrador irá acessar para gerenciar usuários
-routes.get('/register', users.registerForm) //formulario de usuario, tanto
 // routes.get('/', users.index) //Mostrar a lista de usuários cadastrados
+routes.get('/create', users.create) //formulario de cadastro de usuario
+routes.get('/edit', Validator.edit, users.edit) //formulario de edição de usuario
 routes.post('/', Validator.store, users.store) //Cadastrar um usuário
-// routes.put('/', users.put) // Editar um usuário
+routes.put('/', Validator.update, users.update) // Editar um usuário
 // routes.delete('/', users.destroy) // Deletar um usuário
 
 module.exports = routes

@@ -1,0 +1,27 @@
+{% extends "admin/layout.njk" %}
+{% import "admin/parts/header-user.njk" as header %}
+
+{% block content %}
+    <main>
+        <section class="user">
+
+            {{header.user('Criar','create','cancel', 'Cancelar')}}
+
+            <form action='/admin/users' method="POST" id="create">
+                {%include 'admin/users/fields.njk'%}
+
+                <div class="checkbox-user">
+                    <div class="item">
+                        <input type="checkbox" name="is_admin">Administrador
+                    </div>
+                </div>
+            </form>
+
+            <form action="/admin/users" method="POST" id="cancel"></form>
+
+        </section>
+
+    </main>
+
+    <script src="/admin/scripts-user.js"></script>
+{% endblock %}

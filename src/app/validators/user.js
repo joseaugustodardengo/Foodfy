@@ -1,15 +1,25 @@
 const User = require('../models/User')
 
-async function store(req, res, next) {
-    const keys = Object.keys(req.body)
+
+function checkAllFields(body) {
+    const keys = Object.keys(body)
 
     for (key of keys) {
-        if (req.body[key] == "")
-            return res.render('admin/users/register', {
-                user: req.body,
+        if (body[key] == "")
+            return {
+                user: body,
                 error: 'Por favor, preencha todos os campos.'
-            })
+            }            
     }
+}
+
+async function store(req, res, next) {
+
+    const fillAllFields = checkAllFields(req.body)
+
+    if(fillAllFields) {
+        return res.render('admin/users/create', fillAllFields)
+    }   
 
     let { email } = req.body
 
@@ -17,12 +27,54 @@ async function store(req, res, next) {
         where: { email }        
     })
 
-    if (user) return res.render('admin/users/register', {
+    if (user) return res.render('admin/users/create', {
         user: req.body,
         error: 'Usuário já cadastrado.'
-    })
+    })    
 
     next()
 }
 
-module.exports = { store }
+async function edit(req, res, next) {
+    const { userId: id } = req.session
+    const user = await User.findOne({where: {id} })
+
+    if(!user) return res.render('admin/users/create', {
+        error: 'Usuário não encontrado'
+    })
+
+    req.user = user
+
+    next()
+}
+
+async function update(req, res, next) {
+    const fillAllFields = checkAllFields(req.body)
+
+    if(fillAllFields) {
+        return res.render('admin/users/edit', fillAllFields)
+    } 
+
+    let {id, is_admin} = req.body
+
+    if (is_admin == 'on') {
+        is_admin = true
+    } else {
+        is_admin = false
+    }
+
+    const user = await User.findOne({
+        where: { id }        
+    })
+
+    if (!user) return res.render('admin/users/edit', {
+        user: req.body,
+        error: 'Usuário já cadastrado.'
+    })
+
+    req.user = user
+
+    next()
+}
+
+module.exports = { store, edit, update }

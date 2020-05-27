@@ -639,7 +639,7 @@ form .item #photos-preview img {
     width: 100%;
 }
 
-.radio-user .item input {    
+.checkbox-user .item input {    
     width: fit-content;
     height: 15px;
     margin-right: 10px;    

@@ -1,18 +1,12 @@
 module.exports = {
 
     async index(req, res) {
-        try {
-            const { userId: id } = req.session
-            const user = await User.findOne({where: {id} })
-
-            if(!user) return res.render('admin/users/create', {
-                error: 'Usuário não encontrado'
-            })
-
+        try {          
+            const { user } = req
             return res.render("admin/profile/index", {user})
             // return res.render("admin/profile/index")
         } catch (error) {
-            
+            console.error(error)
         }
     },
 

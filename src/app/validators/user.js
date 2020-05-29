@@ -77,4 +77,19 @@ async function update(req, res, next) {
     next()
 }
 
-module.exports = { store, edit, update }
+async function profile(req, res, next) {
+
+    const { userId: id } = req.session
+
+    const user = await User.findOne({where: {id} })
+
+    if(!user) return res.render('users/register', {
+        error: 'Usuário não encontrado'
+    })
+
+    req.user = user    
+
+    next()
+}
+
+module.exports = { store, edit, update, profile }

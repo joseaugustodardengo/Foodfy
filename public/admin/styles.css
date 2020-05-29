@@ -29,11 +29,12 @@ header {
     background: var(--color-font-primary);    
     align-items: center;    
     margin-bottom: 50px;
+    justify-content: space-evenly;
 }
 
 header div {
     display: flex;
-    padding: 30px;
+    max-width: 940px;
 }
 
 header img {
@@ -58,13 +59,21 @@ header .menu ul li {
     margin: auto 30px;    
 }
 
+.logout {
+    margin: inherit;    
+}
+
+.material-icons.logout { color: white; }
+
 header .menu ul li a {
-    color:  #FFFFFF;
+    color:  var(--color-font-third);
     font-size: 16px;
     text-transform: uppercase;
 }
 
+header .menu ul li a:hover,
 header .menu ul li a.active{
+    color: white;
     font-weight: bold;
 }
 

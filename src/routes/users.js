@@ -7,10 +7,12 @@ const users = require('../app/controllers/users')
 const UserValidator = require('../app/validators/user')
 const SessionValidator = require('../app/validators/session')
 
+const {onlyUsers, isAdmin, isLoggedRedirectToProfile } = require('../app/middlewares/session')
+
 // login/logout
-routes.get('/login',session.loginForm)
+routes.get('/login', isLoggedRedirectToProfile, session.loginForm)
 routes.post('/login', SessionValidator.login, session.login)
-routes.post('/logout',session.logout)
+routes.post('/logout', onlyUsers, session.logout)
 /*
 
 // reset password / forgot
@@ -21,11 +23,11 @@ routes.post('/password-reset',session.reset) //armazenar os dados do formulario 
 */
 
 // Rotas que o administrador irá acessar para gerenciar usuários
-// routes.get('/', users.index) //Mostrar a lista de usuários cadastrados
-routes.get('/create', users.create) //formulario de cadastro de usuario
-routes.get('/edit', UserValidator.edit, users.edit) //formulario de edição de usuario
-routes.post('/', UserValidator.store, users.store) //Cadastrar um usuário
-routes.put('/', UserValidator.update, users.update) // Editar um usuário
-// routes.delete('/', users.destroy) // Deletar um usuário
+// routes.get('/', onlyUsers, users.index) //Mostrar a lista de usuários cadastrados
+routes.get('/create', onlyUsers, isAdmin, users.create) //formulario de cadastro de usuario
+routes.get('/edit', onlyUsers, isAdmin, UserValidator.edit, users.edit) //formulario de edição de usuario
+routes.post('/', onlyUsers, isAdmin, UserValidator.store, users.store) //Cadastrar um usuário
+routes.put('/', onlyUsers, UserValidator.update, users.update) // Editar um usuário
+// routes.delete('/', onlyUsers, isAdmin, users.destroy) // Deletar um usuário
 
 module.exports = routes

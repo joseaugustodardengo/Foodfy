@@ -5,7 +5,13 @@ module.exports = {
 
     async create(req, res) {
         try {
-            return res.render("admin/users/create")
+            const error = req.session.error
+            req.session.error = ''
+
+            user = req.session.user
+            req.session.user = ''
+
+            return res.render("admin/users/create",{error,user})
         } catch (error) {
 
         }

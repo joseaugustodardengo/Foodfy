@@ -19,12 +19,14 @@
     margin-top: 130px;
 }
 
-section.login {
+section.login, 
+section.password {
     max-width: 500px;
     margin: auto;
 }
 
-section.login .footer {
+section.login .footer,
+section.password .footer {
     display: flex;
     justify-content: space-between;
     margin-top: 35px;

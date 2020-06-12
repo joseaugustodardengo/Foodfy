@@ -13,14 +13,13 @@ const {onlyUsers, isAdmin, isLoggedRedirectToProfile } = require('../app/middlew
 routes.get('/login', isLoggedRedirectToProfile, session.loginForm)
 routes.post('/login', SessionValidator.login, session.login)
 routes.post('/logout', onlyUsers, session.logout)
-/*
 
 // reset password / forgot
 routes.get('/forgot-password',session.forgotForm) //formulário de esqueci senha
 routes.get('/password-reset',session.resetForm) //formulario de resetar a senha, passando a senha nova
-routes.post('/forgot-password',session.forgot) //armazenar os dados do formulario de esqueci senha, enviar o email com o token novo
-routes.post('/password-reset',session.reset) //armazenar os dados do formulario resetar a senha, com o password novo
-*/
+routes.post('/forgot-password', SessionValidator.forgot, session.forgot) //armazenar os dados do formulario de esqueci senha, enviar o email com o token novo
+routes.post('/password-reset', SessionValidator.reset, session.reset) //armazenar os dados do formulario resetar a senha, com o password novo
+
 
 // Rotas que o administrador irá acessar para gerenciar usuários
 // routes.get('/', onlyUsers, users.index) //Mostrar a lista de usuários cadastrados

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
-
 :root {
     --color-font-primary: #111111;
     --color-font-secondary: #777777; 
@@ -31,11 +29,12 @@ header {
     background: var(--color-font-primary);    
     align-items: center;    
     margin-bottom: 50px;
+    justify-content: space-evenly;
 }
 
 header div {
     display: flex;
-    padding: 30px;
+    max-width: 940px;
 }
 
 header img {
@@ -60,13 +59,21 @@ header .menu ul li {
     margin: auto 30px;    
 }
 
+.logout {
+    margin: inherit;    
+}
+
+.material-icons.logout { color: white; }
+
 header .menu ul li a {
-    color:  #FFFFFF;
+    color:  var(--color-font-third);
     font-size: 16px;
     text-transform: uppercase;
 }
 
+header .menu ul li a:hover,
 header .menu ul li a.active{
+    color: white;
     font-weight: bold;
 }
 
@@ -88,7 +95,8 @@ button {
 }
 
 /* PÁGINA INDEX RECEITAS */
-.recipes .header {
+.recipes .header,
+.users .header {
     display: flex;    
     justify-content: space-between;
 }
@@ -100,6 +108,7 @@ button {
 }
 
 .recipes .header button,
+.users .header button,
 .recipe .header button {
     display: flex;
     flex-direction: column;
@@ -113,7 +122,8 @@ button {
     width: 136px;    
 }
 
-.recipe .header button.delete {
+.recipe .header button.delete,
+.user .header button.delete {
     background-color: #DC4747;    
     margin-right: 10px;
 }
@@ -126,7 +136,8 @@ button {
     margin-bottom: 30px;
 }
 
-.container .recipe-card {    
+.container .recipe-card,
+.container .user-card {    
     width: 300px;
     position: relative;
     display: flex;
@@ -140,12 +151,14 @@ button {
     object-fit: cover;
 }
 
-.container .recipe-card .info {
+.container .recipe-card .info,
+.container .user-card .info {
     margin-left: 20px;
 }
 
 
-.container .recipe-card .info .title {
+.container .recipe-card .info .title,
+.container .user-card .info .title {
     font-size: 18px;
     line-height: 21px;
     margin-bottom: 5px;
@@ -153,12 +166,25 @@ button {
 
 }
 
-.container .recipe-card .info .subtitle {
+.container .recipe-card .info .subtitle,
+.container .user-card .info .subtitle {
     font-size: 14px;
     color: var(--color-font-secondary);    
 }
 
-.container .recipe-card .info button {
+.container .user-card .info a {
+    font-size: 14px;    
+    color: #6558C3;
+    font-weight: bold;
+    cursor: pointer;
+}
+.container .user-card .info button {
+    background: transparent;
+    font-size: 14px;    
+    color: #DC4747;
+}
+
+.container .recipe-card .info button{
     background: transparent;
     font-size: 14px;    
     color: #6558C3;
@@ -397,7 +423,8 @@ form .item textarea {
 }
 
 section.chefs .header button,
-.chef .header button {
+.chef .header button,
+.user .header button {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -463,13 +490,15 @@ section.chefs .header button,
 
 
 /* PÁGINA DE DETALHE CHEF - SHOW */
-section.chef .header {
+section.chef .header,
+section.user .header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
 }
 
-section.chef .container .header {
+section.chef .container .header,
+section.user .container .header {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
@@ -613,6 +642,43 @@ form .item #photos-preview img {
 
 #photos-preview .photo:hover i {
     opacity: 1;
+}
+
+/*PÁGINA DE REGISTRO DE USUÁRIO*/
+.user .header button.cancel {
+    background: #8A8A8A; 
+    margin-right: 10px;
+}
+
+.input-user {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;    
+}
+
+.error-fields{
+    color: #e74c3c; 
+    font-weight: bold;
+    margin-top: 10px;   
+}
+
+.input-user .item {
+    width: 100%;
+}
+
+.checkbox-user .item input {    
+    width: fit-content;
+    height: 15px;
+    margin-right: 10px;    
+}
+
+.input-user .item:first-child {    
+    margin-right: 10px;    
+}
+
+/*PÁGINA DE PROFILE*/
+.user .item input[type="password"] {
+    width: 465px;
 }
 
 /* FOOTER */

@@ -9,11 +9,38 @@
                 <li>
                     <a href="/admin/chefs">Chefs</a>
                 </li>
+
+                <li class="dropdown">
+                    <a href="/admin/users">Usuários</a>
+                    {% if session.isAdmin %}
+                        <ul class="submenu">
+                            <li>
+                                <a href="/admin/users/create">Criar</a>
+                            </li>
+                            <li>
+                                <a href="/admin/users/edit">Atualizar</a>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </li>
+
+                <li class="dropdown">
+                    <a href="/admin/profile">Perfil</a>
+                    
+                </li>
                 <li>
                     <a href="/">Site</a>
-                </li>
+                </li>                
             </ul>
-        </nav>
+        </nav>       
 
+    </div>
+
+    <div class="logout">
+        <li>
+            <form action="/admin/users/logout" method="POST">
+                <button><i class="material-icons logout">power_settings_new</i></button>
+            </form>
+        </li>        
     </div>
 </header>

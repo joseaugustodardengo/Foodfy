@@ -1,0 +1,11 @@
+<div class="input-user">
+    <div class="item">
+        <p>Nome</p>
+        <input type="text" name="name" value="{{user.name}}">
+    </div>
+
+    <div class="item">
+        <p>Email</p>
+        <input type="text" name="email" value="{{user.email}}" onblur="Validate.apply(this, 'isEmail')">
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="item">
+    <p>Email</p>
+    <input type="text" name="email" placeholder="Digite seu email" value="{{user.email}}" onblur="Validate.apply(this, 'isEmail')">
+</div>
+
+<div class="item">
+    <p>Senha</p>
+    <input type="password" name="password" placeholder="Digite sua nova senha">    
+</div>
+
+<div class="item">
+    <p>Repetição de Senha</p>    
+    <input type="password" name="passwordRepeat" placeholder="Repita a nova senha">    
+</div>
+
+<input type="hidden" name="token" value="{{token}}">

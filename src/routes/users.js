@@ -22,9 +22,9 @@ routes.post('/password-reset', SessionValidator.reset, session.reset) //armazena
 
 
 // Rotas que o administrador irá acessar para gerenciar usuários
-// routes.get('/', onlyUsers, users.index) //Mostrar a lista de usuários cadastrados
+routes.get('/', onlyUsers, users.index) //Mostrar a lista de usuários cadastrados
 routes.get('/create', onlyUsers, isAdmin, users.create) //formulario de cadastro de usuario
-routes.get('/edit', onlyUsers, isAdmin, UserValidator.edit, users.edit) //formulario de edição de usuario
+routes.get('/:id/edit', onlyUsers, isAdmin, users.edit) //formulario de edição de usuario
 routes.post('/', onlyUsers, isAdmin, UserValidator.store, users.store) //Cadastrar um usuário
 routes.put('/', onlyUsers, UserValidator.update, users.update) // Editar um usuário
 // routes.delete('/', onlyUsers, isAdmin, users.destroy) // Deletar um usuário

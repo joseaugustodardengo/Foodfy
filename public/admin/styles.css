@@ -95,7 +95,8 @@ button {
 }
 
 /* PÁGINA INDEX RECEITAS */
-.recipes .header {
+.recipes .header,
+.users .header {
     display: flex;    
     justify-content: space-between;
 }
@@ -107,6 +108,7 @@ button {
 }
 
 .recipes .header button,
+.users .header button,
 .recipe .header button {
     display: flex;
     flex-direction: column;
@@ -134,7 +136,8 @@ button {
     margin-bottom: 30px;
 }
 
-.container .recipe-card {    
+.container .recipe-card,
+.container .user-card {    
     width: 300px;
     position: relative;
     display: flex;
@@ -148,12 +151,14 @@ button {
     object-fit: cover;
 }
 
-.container .recipe-card .info {
+.container .recipe-card .info,
+.container .user-card .info {
     margin-left: 20px;
 }
 
 
-.container .recipe-card .info .title {
+.container .recipe-card .info .title,
+.container .user-card .info .title {
     font-size: 18px;
     line-height: 21px;
     margin-bottom: 5px;
@@ -161,12 +166,25 @@ button {
 
 }
 
-.container .recipe-card .info .subtitle {
+.container .recipe-card .info .subtitle,
+.container .user-card .info .subtitle {
     font-size: 14px;
     color: var(--color-font-secondary);    
 }
 
-.container .recipe-card .info button {
+.container .user-card .info a {
+    font-size: 14px;    
+    color: #6558C3;
+    font-weight: bold;
+    cursor: pointer;
+}
+.container .user-card .info button {
+    background: transparent;
+    font-size: 14px;    
+    color: #DC4747;
+}
+
+.container .recipe-card .info button{
     background: transparent;
     font-size: 14px;    
     color: #6558C3;

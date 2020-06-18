@@ -1,6 +1,18 @@
 const db = require('../../config/db')
 
 module.exports = {
+    async findAll(filters) {
+        try {
+            let query = `SELECT * FROM users`
+
+            const results = await db.query(query)
+            
+            return results.rows
+        } catch (error) {
+            console.error(error)
+        }
+    },
+
     async findOne(filters) {
         try {
             let query = `SELECT * FROM users`

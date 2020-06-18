@@ -11,8 +11,8 @@
                 </li>
 
                 <li class="dropdown">
-                    <a href="/admin/users/create">Usuários</a>
-                    {% if session.userId %}
+                    <a href="/admin/users">Usuários</a>
+                    {% if session.isAdmin %}
                         <ul class="submenu">
                             <li>
                                 <a href="/admin/users/create">Criar</a>

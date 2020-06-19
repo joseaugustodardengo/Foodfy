@@ -3,43 +3,25 @@ const Recipe = require('../models/Recipe')
 module.exports = {
     async index(req, res) {
 
-        let { search, page, limit } = req.query
+        let {search} = req.query
 
+        let recipes = await Recipe.findBy(search)
 
-        page = page || 1
-        limit = limit || 2
-        let offset = limit * (page - 1)
+        async function getImage(recipeId) {
+            let results = await Recipe.files(recipeId)
 
-        const params = {
-            search,
-            page,
-            limit,
-            offset,
-            async callback(recipes) {
-                async function getImage(recipeId) {
-                    let results = await Recipe.files(recipeId)
-
-                    return results.rows[0]
-                }
-
-                const filesPromiseRecipeFiles = recipes.map(async recipe => {
-                    recipe.file = await getImage(recipe.id)
-                    return recipe
-                })
-
-                await Promise.all(filesPromiseRecipeFiles)
-
-                const pagination = {
-                    total: Math.ceil(recipes[0].total / limit),
-                    page
-                }
-
-                return res.render("site/search", { items: recipes, search, pagination })
-            }
+            return results.rows[0]
         }
 
-        Recipe.paginate(params)
+        const filesPromiseRecipeFiles = recipes.map(async recipe => {
+            recipe.file = await getImage(recipe.id)
+            return recipe
+        })
 
+        const recipesList = await Promise.all(filesPromiseRecipeFiles)
+
+        return res.render("site/search", { items: recipesList, search })
+        
     }
 
 

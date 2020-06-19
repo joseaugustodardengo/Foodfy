@@ -1,22 +1,10 @@
 {% extends "site/layout.njk" %}
+{% import "site/parts/section-recipes.njk" as recipesGrid %}
 
 {% block content %}
 
     <main>
-        <section class="recipes">
-            <div class="container">
-                <div class="cards">
-                {% for item in items %}                    
-                    <div id="{{item.id}}" class="recipe-card">
-                        <img src="{{item.file.path}}" alt="Imagem de {{item.title}}" class="image">
-                        <h3 class="title">{{item.title}}</h3>
-                        <p class="subtitle">{{item.chef_name}}</p>                  
-
-                    </div>
-                {% endfor %}                                     
-                </div>
-            </div>
-        </section>        
+       {{recipesGrid.recipes('','','recipes',items)}}        
     </main>
 
     <div class="pagination"

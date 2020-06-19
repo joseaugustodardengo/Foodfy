@@ -1,16 +1,16 @@
 const express = require('express')
 const routes = express.Router()
 const multer = require('../app/middlewares/multer')
+const user = require('../app/middlewares/user')
 const recipes = require("../app/controllers/recipes")
+const FieldsValidator = require('../app/validators/fields')
 
-
-//RECIPES
-routes.get("/", recipes.index) // Mostrar a lista de receitas
-routes.get("/create", recipes.create) // Mostrar formulário de nova receita
-routes.get("/:id", recipes.show) // Exibir detalhes de uma receita
-routes.get("/:id/edit", recipes.edit) // Mostrar formulário de edição de receita
-routes.post("/",multer.array("photos",5), recipes.store) // Armazenar nova receita
-routes.put("/",multer.array("photos",5), recipes.update); // Atualizar receita
-routes.delete("/", recipes.destroy); // Deletar receita
+routes.get("/", recipes.index) 
+routes.get("/create", recipes.create) 
+routes.get("/:id", recipes.show) 
+routes.get("/:id/edit", user.verifyCredentials, recipes.edit) 
+routes.post("/", FieldsValidator.checkAllFields, multer.array("photos",5), recipes.store) 
+routes.put("/", FieldsValidator.checkAllFields, multer.array("photos",5), recipes.update)
+routes.delete("/", recipes.destroy)
 
 module.exports = routes

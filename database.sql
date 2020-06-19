@@ -93,3 +93,41 @@ CREATE TRIGGER set_timestamp
 BEFORE UPDATE ON users
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();
+
+CREATE OR REPLACE FUNCTION delete_files_when_recipes_files_row_was_deleted()
+RETURNS TRIGGER AS $$
+BEGIN
+EXECUTE ('DELETE FROM files
+WHERE id = $1')
+USING OLD.file_id;
+RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- user cascade trigger
+CREATE TRIGGER delete_recipes_files
+AFTER DELETE ON recipes_files
+FOR EACH ROW
+EXECUTE PROCEDURE delete_files_when_recipes_files_row_was_deleted();
+
+-- DELETE CASCADE
+ALTER TABLE "recipes"
+DROP CONSTRAINT recipes_user_id_fkey,
+ADD CONSTRAINT recipes_user_id_fkey
+FOREIGN KEY ("user_id")
+REFERENCES users("id")
+ON DELETE CASCADE;
+
+ALTER TABLE "recipes_files"
+DROP CONSTRAINT recipes_files_recipe_id_fkey,
+ADD CONSTRAINT recipes_files_recipe_id_fkey
+FOREIGN KEY ("recipe_id")
+REFERENCES recipes("id")
+ON DELETE CASCADE;
+
+ALTER TABLE "recipes_files"
+DROP CONSTRAINT recipes_files_file_id_fkey,
+ADD CONSTRAINT recipes_files_file_id_fkey
+FOREIGN KEY ("file_id")
+REFERENCES files("id")
+ON DELETE CASCADE;

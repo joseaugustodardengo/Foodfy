@@ -1,7 +1,8 @@
 {% extends "site/layout.njk" %}
+{% import "site/parts/section-recipes.njk" as recipesGrid %}
 
 {% block content %}
- 
+
     <main>
         <section class="banner">
             <div class="container">
@@ -14,23 +15,10 @@
                 <img src="/site/chef.png" alt="" class="banner-image">
             </div>
         </section>
-    
-        <section class="more-access">
-            <div class="container">
-                <h2>Mais acessadas</h2>
-                <div class="cards">
-                    
-                    {% for item in items.slice(0, 6) %}                    
-                        <div class="recipe-card">
-                            <img src="{{item.file.path}}" alt="Imagem de {{item.image}}" class="image">
-                            <h3 class="title">{{item.title}}</h3>
-                            <p class="subtitle">{{item.chef_name}}</p>                    
-                        </div>
-                    {% endfor %}                                     
-                    
-                </div>
-            </div>
-        </section>
+
+
+       {{recipesGrid.recipes( 'Mais acessadas','','more-access', items.slice(0,6) )}}        
+        
     </main>      
 
 {% endblock %}

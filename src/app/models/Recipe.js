@@ -4,12 +4,17 @@ const fs = require('fs')
 
 module.exports = {
     all() {
-        const query = `SELECT recipes.*, chefs.name AS chef_name 
-        FROM recipes 
-        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        ORDER BY recipes.created_at DESC`
-
-        return db.query(query)
+        try {
+            const query = `SELECT recipes.*, chefs.name AS chef_name 
+            FROM recipes 
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            ORDER BY recipes.created_at DESC`
+    
+            return db.query(query)
+            
+        } catch (error) {
+            console.error(error)
+        }
     },
 
     create(data) {
@@ -45,21 +50,24 @@ module.exports = {
     },
 
     //buscar pelo search
-    findBy(search, callback) {
-        const query = `SELECT recipes.*, chefs.name AS chef_name 
-        FROM recipes 
-        LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-        WHERE recipes.title ILIKE '%${search}%'
-        ORDER BY recipes.title ASC`
+    async findBy(search) {
+        try {
+            const query = `SELECT recipes.*, chefs.name AS chef_name 
+            FROM recipes 
+            LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+            WHERE recipes.title ILIKE '%${search}%'
+            ORDER BY updated_at DESC`
+    
+            const results = await db.query(query)
 
-        db.query(query, function (err, results) {
-            if (err) throw `Database error! ${err}`
-
-            callback(results.rows)
-        })
+            return results.rows
+            
+        } catch (error) {
+            console.error(er)
+        }
     },
 
-    update(data) {
+    async update(data) {
         try {
             const query = `UPDATE recipes SET
                 chef_id = ($1),
@@ -70,9 +78,9 @@ module.exports = {
                 information = ($6)
             WHERE id = $7
             `
-    
-            return db.query(query, data)
-            
+
+            await db.query(query, data) 
+                        
         } catch (error) {
             console.error(error)
         }

@@ -7,7 +7,7 @@
             <div class="header">
                 <h2>Gerenciar usuários</h2>
                 {% if session.isAdmin %}
-                    <a href="/admin/recipes/create">
+                    <a href="/admin/users/create">
                         <button>
                             Novo usuário
                         </button>
@@ -26,18 +26,18 @@
                                 <p class="subtitle">{{user.email}}</p>
                                 <a href="/admin/users/{{user.id}}/edit">Editar</a>
                                 <button form="delete" type="submit">Remover</button>
+                                <form action="/admin/users?_method=DELETE" method="POST" id="delete">
+                                    <input type="hidden" name="id" value="{{user.id}}">            
+                                </form>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
             </div>
-
-            <form action="/admin/users?_method=DELETE" method="POST" id="delete">
-                <input type="hidden" name="id" value="{{user.id}}">            
-            </form>
-
+            
         </section>
     </main>
     <script src="/admin/scripts.js"></script>
+    <script src="/admin/confirm-delete.js"></script>
 
 {% endblock %}

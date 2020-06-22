@@ -1,3 +1,5 @@
+const User = require('../models/User')
+
 module.exports = {
 
     async index(req, res) {
@@ -10,14 +12,34 @@ module.exports = {
             const success = req.session.success
             req.session.success = ""
 
-            return res.render("admin/profile/index", {user, error, success})
-            // return res.render("admin/profile/index")
+            return res.render("admin/profile/index", {user, error, success})            
         } catch (error) {
             console.error(error)
         }
     },
 
-    update(req,res) {
+    async update(req,res) {
+        try {
+            const { user } = req
+
+            let { name, email } = req.body
+
+            let is_admin = req.session.isAdmin
+
+            await User.update(user.id, {
+                name,
+                email,
+                is_admin
+            })
+
+            req.session.success = 'Perfil alterado com sucesso!'
         
+            return res.redirect(`/admin/profile`) 
+
+        } catch (error) {
+            console.error(error)
+        }       
+
+       
     }
 }

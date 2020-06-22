@@ -9,6 +9,6 @@ const {onlyUsers } = require('../app/middlewares/session')
 
 // Rotas de perfil de um usuário logado
 routes.get('/', onlyUsers, UserValidator.profile, profile.index) // Mostrar o formulário com dados do usuário logado
-routes.put('/', profile.update)// Editar o usuário logado
+routes.put('/', UserValidator.passwordMatch, profile.update)// Editar o usuário logado
 
 module.exports = routes

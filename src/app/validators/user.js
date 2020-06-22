@@ -1,25 +1,7 @@
 const User = require('../models/User')
+const {compare} = require('bcryptjs')
 
-
-function checkAllFields(body) {
-    const keys = Object.keys(body)
-
-    for (key of keys) {
-        if (body[key] == "")
-            return {
-                user: body,
-                error: 'Por favor, preencha todos os campos.'
-            }            
-    }
-}
-
-async function store(req, res, next) {
-
-    const fillAllFields = checkAllFields(req.body)
-
-    if(fillAllFields) {
-        return res.render('admin/users/create', fillAllFields)
-    }   
+async function emailVerification(req, res, next) {
 
     let { email } = req.body
 
@@ -29,7 +11,7 @@ async function store(req, res, next) {
 
     if (user) return res.render('admin/users/create', {
         user: req.body,
-        error: 'Usuário já cadastrado.'
+        error: 'Usuário já cadastrado. Tente outro email.'
     })    
 
     next()
@@ -49,12 +31,6 @@ async function edit(req, res, next) {
 }
 
 async function update(req, res, next) {
-    const fillAllFields = checkAllFields(req.body)
-
-    if(fillAllFields) {
-        return res.render('admin/users/edit', fillAllFields)
-    } 
-
     let {id, is_admin} = req.body
 
     if (is_admin == 'on') {
@@ -83,13 +59,33 @@ async function profile(req, res, next) {
 
     const user = await User.findOne({where: {id} })
 
-    if(!user) return res.render('users/register', {
-        error: 'Usuário não encontrado'
-    })
+    if(!user) {  
+        user = req.body
+        req.session.error = 'Usuário não encontrado'
+        res.redirect(`${req.headers.referer}`)
+    }
 
     req.user = user    
 
     next()
 }
 
-module.exports = { store, edit, update, profile }
+async function passwordMatch(req, res, next) {    
+    const { email, password } = req.body
+
+    let user = await User.findOne({where: {email} })
+
+    const passed = await compare(password, user.password)
+
+    if(!passed) {        
+        user = req.body
+        req.session.error = 'Senha incorreta'        
+        return res.redirect('/admin/profile')
+    }
+
+    req.user = user    
+    
+    next()
+}
+
+module.exports = { emailVerification, edit, update, profile, passwordMatch }

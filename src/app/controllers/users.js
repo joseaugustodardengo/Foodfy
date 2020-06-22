@@ -7,22 +7,22 @@ module.exports = {
     async index(req, res) {
         try {
             const error = req.session.error
-            req.session.error = ''            
+            req.session.error = ''
 
             let usersList = await User.findAll()
 
             function filterOtherUsers(user) {
                 return user.id != req.session.userId
-              }
-        
-              function filterNotAdminUsers(user) {
-                return user.is_admin != true
-              }
-        
-              usersList = usersList.filter(filterOtherUsers)
-              usersList = usersList.filter(filterNotAdminUsers)
+            }
 
-            return res.render("admin/users/index", { users:usersList, error })   
+            function filterNotAdminUsers(user) {
+                return user.is_admin != true
+            }
+
+            usersList = usersList.filter(filterOtherUsers)
+            usersList = usersList.filter(filterNotAdminUsers)
+
+            return res.render("admin/users/index", { users: usersList, error })
 
         } catch (error) {
             console.error(error)
@@ -37,7 +37,7 @@ module.exports = {
             user = req.session.user
             req.session.user = ''
 
-            return res.render("admin/users/create",{error,user})
+            return res.render("admin/users/create", { error, user })
         } catch (error) {
 
         }
@@ -47,7 +47,7 @@ module.exports = {
         try {
             const { id } = req.params
 
-            const user = await User.findOne({where: {id} })
+            const user = await User.findOne({ where: { id } })
 
             return res.render("admin/users/edit", { user })
         } catch (error) {
@@ -58,7 +58,7 @@ module.exports = {
     async store(req, res) {
         try {
             const token = crypto.randomBytes(6).toString("hex")
-            
+
             const passwordHash = await hash(token, 8)
 
             await mailer.sendMail({
@@ -131,5 +131,17 @@ module.exports = {
         }
 
 
+    },
+
+    async destroy(req, res) {
+        try {
+
+            await User.delete(req.body.id)
+
+            return res.redirect(`/admin/users`)
+
+        } catch (error) {
+            console.error(error)
+        }
     }
 }

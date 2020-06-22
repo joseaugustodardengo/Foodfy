@@ -6,11 +6,14 @@
         <section class="chefs">
             <div class="header">
                 <h2>Gerenciar chefs</h2>
-                <a href="/admin/chefs/create">
-                    <button>
-                        Novo chef
-                    </button>
-                </a>
+                {% if session.isAdmin %}
+                    <a href="/admin/chefs/create">
+                        <button>
+                            Novo chef
+                        </button>
+                    </a>
+                
+                {% endif %}
 
             </div>
             <div class="container">

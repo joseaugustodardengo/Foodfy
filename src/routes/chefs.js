@@ -2,15 +2,16 @@ const express = require('express')
 const routes = express.Router()
 const multer = require('../app/middlewares/multer')
 const chefs = require("../app/controllers/chefs")
+const FieldsValidator = require('../app/validators/fields')
+const {isAdmin} = require('../app/middlewares/session')
 
-//CHEFS
-routes.get("/", chefs.index) // Mostrar a lista de receitas
-routes.get("/create", chefs.create) // Mostrar formulário de nova receita
-routes.get("/:id", chefs.show) // Exibir detalhes de uma receita
-routes.get("/:id/edit", chefs.edit) // Mostrar formulário de edição de receita
-routes.post("/",multer.single("photos", 1), chefs.store) // Armazenar nova receita
-routes.put("/",multer.single("photos", 1), chefs.update); // Atualizar receita
-routes.delete("/", chefs.destroy); // Deletar receita
+routes.get("/", chefs.index) 
+routes.get("/create", isAdmin, chefs.create)
+routes.get("/:id", chefs.show) 
+routes.get("/:id/edit", isAdmin, chefs.edit) 
+routes.post("/", isAdmin, FieldsValidator.checkAllFields, multer.single("photos", 1), chefs.store) 
+routes.put("/", isAdmin, FieldsValidator.checkAllFields, multer.single("photos", 1), chefs.update); 
+routes.delete("/", isAdmin, chefs.destroy); 
 
 
 module.exports = routes

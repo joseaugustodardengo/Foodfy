@@ -14,10 +14,7 @@
 
             <form action="/admin/chefs?_method=PUT" method="POST" id="update" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{item.id}}">
-                {%include 'admin/chefs/fields.njk'%}
-
-                {# Mensagem informando se pode ser deletado ou não #}
-                {{mensagem}}
+                {%include 'admin/chefs/fields.njk'%}                
             </form>
 
             <form action="/admin/chefs?_method=DELETE" method="POST" id="delete">

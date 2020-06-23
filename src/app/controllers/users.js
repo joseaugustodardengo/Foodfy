@@ -47,9 +47,15 @@ module.exports = {
         try {
             const { id } = req.params
 
+            const error = req.session.error
+            req.session.error = ''
+
+            const success = req.session.success
+            req.session.success = ''
+
             const user = await User.findOne({ where: { id } })
 
-            return res.render("admin/users/edit", { user })
+            return res.render("admin/users/edit", { user, error, success })
         } catch (error) {
             console.error(error)
         }
@@ -79,18 +85,22 @@ module.exports = {
 
             if (is_admin == 'on') {
                 is_admin = true
+            } else {
+                is_admin = false
             }
 
-            const values = [
-                req.body.name,
-                req.body.email,
-                passwordHash,
-                is_admin || false
-            ]
+            const values = {
+                name: req.body.name,
+                email: req.body.email,
+                password: passwordHash,
+                is_admin
+            }
 
             const userId = await User.create(values)
 
             req.session.userId = userId
+
+            req.session.success = `O seu acesso foi enviado para o email ${req.body.email}.`
 
             return res.redirect(`/admin/users/${userId}/edit`)
 
@@ -136,7 +146,7 @@ module.exports = {
     async destroy(req, res) {
         try {
 
-            await User.delete(req.body.id)
+            await User.delete(req.body.id)            
 
             return res.redirect(`/admin/users`)
 

@@ -1,48 +1,93 @@
-// const { date } = require('../../lib/utils')
 const db = require('../../config/db')
 const fs = require('fs')
+const Base = require('./Base')
+
+Base.init({table: 'recipes'})
 
 module.exports = {
-    all() {
+    ...Base,
+
+    async create(fields) {
+        let keys = [],
+        values = [],
+        numbers = []
+
         try {
-            const query = `SELECT recipes.*, chefs.name AS chef_name 
+            
+            Object.keys(fields).map((key, index, array) => {
+                keys.push(key)
+                values.push(fields[key])
+
+                if(index < array.length){
+                    numbers.push(`$${index+1}`)
+                }
+            })
+
+            const query = `INSERT INTO ${this.table} (${keys.join(',')})
+                VALUES (${numbers.join(',')})
+                RETURNING id
+            `
+
+            const results = await db.query(query, values)
+            return results.rows[0].id
+
+        } catch (error) {
+            console.error(error)
+        }
+    },
+
+    async update(id, fields) {
+        try {
+            let keys = [],
+            values = [],
+            update = [],
+            numbers= []
+
+            Object.keys(fields).map((key, index, array) => { 
+                keys.push(key)
+                values.push(fields[key])
+
+                if(index < array.length){
+                    numbers.push(`$${index+1}`)
+                }
+
+                const line = `${key} = (${numbers[index]})`
+                update.push(line)       
+            })
+
+            let query = `UPDATE ${this.table} SET
+            ${update.join(',')} WHERE id = ${id}
+            `
+
+            return db.query(query, values)  
+            
+        } catch (error) {
+            console.error(error)
+        }                  
+    }, 
+
+    async findAll() {
+        try {
+            const results = await db.query(`SELECT recipes.*, chefs.name AS chef_name 
             FROM recipes 
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            ORDER BY recipes.created_at DESC`
+            ORDER BY recipes.created_at DESC`)
     
-            return db.query(query)
+            return results.rows
             
         } catch (error) {
             console.error(error)
         }
-    },
+    },    
 
-    create(data) {
+    async find(id) {
         try {
-            const query = `INSERT INTO recipes (
-                chef_id,
-                user_id,
-                title,
-                ingredients,
-                preparation,
-                information            
-            ) VALUES ($1, $2, $3, $4, $5, $6)
-            RETURNING id`
-    
-            return db.query(query, data)            
-        } catch (error) {
-            console.error(error)
-        }
-    },
-
-    find(id) {
-        try {
-            const query = `SELECT recipes.*, chefs.name AS chef_name 
+            const results = await db.query(`SELECT recipes.*, chefs.name AS chef_name 
             FROM recipes 
             LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-            WHERE recipes.id = $1`
+            WHERE recipes.id = ${id}`)
     
-            return db.query(query, [id])
+            return results.rows[0]
             
         } catch (error) {
             
@@ -67,35 +112,8 @@ module.exports = {
         }
     },
 
-    async update(data) {
-        try {
-            const query = `UPDATE recipes SET
-                chef_id = ($1),
-                user_id = ($2),
-                title = ($3),
-                ingredients = ($4),
-                preparation = ($5),
-                information = ($6)
-            WHERE id = $7
-            `
-
-            await db.query(query, data) 
-                        
-        } catch (error) {
-            console.error(error)
-        }
-    },
-
     delete(id) {
         return db.query(`DELETE FROM recipes WHERE id = $1`, [id])
-    },
-
-    chefsSelectOptions() {
-        try {
-            return db.query(`SELECT id, name FROM chefs`)            
-        } catch (error) {
-            console.error(error)
-        }
     },
 
     //função de paginação
@@ -129,33 +147,16 @@ module.exports = {
 
             callback(results.rows)
         })
-    },
+    },   
 
-    createRecipeFiles({recipe_id, file_id}) {
+    async files(recipeId) {
         try {
-            const query = `INSERT INTO recipes_files (
-                recipe_id,
-                file_id
-            ) VALUES ($1, $2)
-            RETURNING id`
-
-            const values = [
-                recipe_id,
-                file_id
-            ]
-
-            return db.query(query,values)
-        } catch (error) {
-            console.error(error)
-        }
-    },    
-
-    files(recipeId) {
-        try {
-            return db.query(`SELECT files.* 
+            const results = await db.query(`SELECT files.* 
             FROM files 
             JOIN recipes_files ON (recipes_files.file_id = files.id)
-            WHERE recipes_files.recipe_id = $1`, [recipeId])        
+            WHERE recipes_files.recipe_id = $1`, [recipeId]) 
+            
+            return results.rows
             
         } catch (error) {
             console.log(error);            

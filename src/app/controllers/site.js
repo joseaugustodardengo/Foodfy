@@ -60,9 +60,8 @@ module.exports = {
 
     async chefs(req, res) {
         try {
-            const chefs = await Chef.all()
-            const items = chefs.rows
-            return res.render("site/chefs", { items })
+            const chefs = await Chef.findAll()            
+            return res.render("site/chefs", { items:chefs })
             
         } catch (error) {
             console.error(error)

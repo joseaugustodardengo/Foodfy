@@ -29,9 +29,9 @@ module.exports = {
             const recipes = await Chef.findRecipes(req.params.id)
 
             async function getImage(recipeId) {
-                let results = await Recipe.files(recipeId)
-
-                return results.rows[0]
+                let file = await Recipe.files(recipeId)               
+            
+                return file[0]
             }
 
             const filesPromiseRecipeFiles = recipes.map(async recipe => {

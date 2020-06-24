@@ -5,13 +5,12 @@ module.exports = {
     
     async home(req, res) {
         try {
-            let results = await Recipe.all()
-            const recipes = results.rows
+            const recipes = await Recipe.findAll()
     
             async function getImage(recipeId) {
-                let results = await Recipe.files(recipeId)
-    
-                return results.rows[0]
+                let file = await Recipe.files(recipeId)               
+            
+                return file[0]
             }
     
             const filesPromiseRecipeFiles = recipes.map(async recipe => {
@@ -34,13 +33,12 @@ module.exports = {
 
     async recipes(req, res) {
         try {
-            let results = await Recipe.all()
-            const recipes = results.rows
+            const recipes = await Recipe.findAll()
         
             async function getImage(recipeId) {
-                let results = await Recipe.files(recipeId)
+                let file = await Recipe.files(recipeId)               
             
-                return results.rows[0]
+                return file[0]
             }
     
             const filesPromiseRecipeFiles = recipes.map(async recipe => {
@@ -72,14 +70,12 @@ module.exports = {
         try {
             const id = req.params.id
     
-            let results = await Recipe.find(id)
-            const recipe = results.rows[0]
+            const recipe = await Recipe.find(id)
     
             if (!recipe) return res.send('Receita não encontrada')
     
-            results = await Recipe.files(recipe.id)
-            let files = results.rows
-            files = files.map(file => ({
+            let files = await Recipe.files(recipe.id)
+            files = files.map(file =>({
                 ...file
             }))
     

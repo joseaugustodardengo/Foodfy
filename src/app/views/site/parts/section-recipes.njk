@@ -2,8 +2,10 @@
 
     <section class="{{class}}">
         <div class="container">
-            {% if title %}
+            {% if title and search %}
                 <h2>{{title}} "{{search}}"</h2>
+            {% else %}            
+                <h2>{{title}} </h2>
             {% endif %}
             <div class="cards">
                 {% for item in items %}

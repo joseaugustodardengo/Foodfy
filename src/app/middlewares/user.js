@@ -1,8 +1,7 @@
 const Recipe = require('../models/Recipe')
 
 async function verifyCredentials(req, res, next) {
-  let results = await Recipe.find(req.params.id)
-  const recipe = results.rows[0]  
+  const recipe = await Recipe.find(req.params.id)
 
   function itsNotAdmin() {
     req.session.error = 'Você não tem autorização para editar as receitas de outros usuários.'

@@ -1,28 +1,12 @@
 const db = require('../../config/db')
 const fs = require('fs')
+const Base = require('./Base')
+
+Base.init({table: 'files'})
 
 module.exports = {
-
-    create({filename, path}) {
-        try {
-            const query = `INSERT INTO files (
-                name,
-                path                        
-            ) VALUES ($1, $2)
-            RETURNING id`
+    ...Base,
     
-            const values = [
-                filename,
-                path
-            ]
-        
-            return db.query(query, values)
-            
-        } catch (error) {
-            console.log(error);            
-        }
-    },
-
     findById(id) {
         try {
             return db.query('SELECT * FROM files WHERE id=$1',[id])

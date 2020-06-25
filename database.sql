@@ -1,4 +1,19 @@
+DROP DATABASE IF EXISTS foodfy;
 CREATE DATABASE foodfy;
+
+-- to run seeds
+DELETE FROM users;
+DELETE FROM chefs;
+DELETE FROM recipes;
+DELETE FROM files;
+DELETE FROM recipes_files;
+
+-- restart sequence auto_increment from tales ids
+ALTER SEQUENCE chefs_id_seq RESTART WITH 1;
+ALTER SEQUENCE recipes_id_seq RESTART WITH 1;
+ALTER SEQUENCE files_id_seq RESTART WITH 1;
+ALTER SEQUENCE recipes_files_id_seq RESTART WITH 1;
+ALTER SEQUENCE users_id_seq RESTART WITH 1;
 
 CREATE TABLE "chefs" (
   "id" SERIAL UNIQUE PRIMARY KEY NOT NULL,
@@ -39,8 +54,8 @@ CREATE TABLE "users" (
   "name" text NOT NULL,
   "email" text NOT NULL,
   "password" text NOT NULL,
-  "reset_token" text NOT NULL,
-  "reset_token_expires" text NOT NULL,
+  "reset_token" text,
+  "reset_token_expires" text,
   "is_admin" boolean DEFAULT false,
   "created_at" timestamp DEFAULT (now()),
   "updated_at" timestamp DEFAULT (now())

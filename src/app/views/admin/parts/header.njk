@@ -1,0 +1,64 @@
+<header>
+    <div>
+        <a href="/"><img src="/admin/logo-white.png" alt=""></a>
+        <nav class="menu">
+            <ul>               
+                <li class="dropdown">
+                    <a href="#">Receitas</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/admin/recipes/dashboard">Minhas receitas</a>
+                            </li>
+                            <li>
+                                <a href="/admin/recipes">Todas receitas</a>
+                            </li>
+                            <li>
+                                <a href="/admin/recipes/create">Criar receita</a>
+                            </li>                        
+                        </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Chefs</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/admin/chefs">Listar</a>
+                            </li>
+                            {% if session.isAdmin %}
+                                <li>
+                                    <a href="/admin/chefs/create">Criar</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#">Usuários</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/admin/users">Listar</a>
+                            </li>
+                            {% if session.isAdmin %}
+                                <li>
+                                    <a href="/admin/users/create">Criar</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                </li>
+
+                <li>
+                    <a href="/admin/profile">Perfil</a>                    
+                </li>                                
+            </ul>
+        </nav>       
+
+    </div>
+
+    <div class="logout">
+        <li>
+            <form action="/admin/users/logout" method="POST">
+                <button><i class="material-icons logout">power_settings_new</i></button>
+            </form>
+        </li>        
+    </div>
+</header>

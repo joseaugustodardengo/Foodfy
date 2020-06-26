@@ -1,0 +1,25 @@
+<header>
+        <a href="/"><img src="/site/logo.png" alt=""></a>        
+        <nav class="menu">
+            <ul>
+                <li>
+                    <a href="/about">Sobre</a>
+                </li>
+                <li>
+                    <a href="/recipes">Receitas</a>
+                </li>                                
+                <li>
+                    <a href="/chefs">Chefs</a>
+                </li>                                
+                <li>
+                    <a href="/admin/users/login">Admin</a>
+                </li>                                
+            </ul>
+        </nav>
+
+        {# <form action="/" method="GET"> #}
+        <form action="/products/search" method="GET">
+            <input type="text" name="search" placeholder="Buscar uma receita" value={{search}}>
+            <button type="submit">Buscar</button>
+        </form>
+    </header>

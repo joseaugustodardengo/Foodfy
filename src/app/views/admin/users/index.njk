@@ -1,0 +1,38 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="users">
+            <div class="header">
+                <h2>Gerenciar usuários</h2>
+                {% if session.isAdmin %}
+                    <a href="/admin/users/create">
+                        <button>
+                            Novo usuário
+                        </button>
+                    </a>
+
+                {% endif %}
+
+            </div>
+            <div class="container">
+                <div class="cards">
+                    {% for user in users %}
+                        <div id="{{user.id}}" class="user-card">     
+                            <div class="info">
+                                <h3 class="title">{{user.name}}</h3>
+                                <p class="subtitle">{{user.email}}</p>
+                                <a href="/admin/users/{{user.id}}/edit">Editar</a>                              
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </section>
+    </main>
+    {# <script src="/admin/scripts-user.js"></script> #}
+    <script src="/admin/confirm-delete.js"></script>
+
+{% endblock %}

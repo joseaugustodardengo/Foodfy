@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foody</title>
+
+    
+    {% include "admin/parts/styles.njk"%}
+    
+</head>
+<body>
+    {% include "admin/parts/messages.njk"%}
+
+    {% include "admin/parts/header.njk"%}
+
+    {% block content %}
+    
+    {% endblock %}
+
+    {% include "admin/parts/footer.njk"%}  
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{% extends "site/layout.njk" %}
+{% import "site/parts/section-recipes.njk" as recipesGrid %}
+
+{% block content %}
+
+    <main>
+
+        {{recipesGrid.recipes('Buscando por ', search, 'recipes', items)}}        
+        
+    </main>
+
+    <div class="pagination"
+        data-page={{pagination.page}}
+        data-total={{pagination.total}}
+        data-search={{search}}
+    ></div>
+
+    <script src="/site/scripts.js"></script>
+    <script src="/site/pagination.js"></script>
+{% endblock %}

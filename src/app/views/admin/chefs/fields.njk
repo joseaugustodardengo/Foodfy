@@ -1,0 +1,28 @@
+<div class="item">
+    <p>Nome</p>
+    <input type="text" name="name" value="{{item.name}}">
+</div>
+
+<div class="item">
+    <p>Avatar</p>
+
+    <div class="photos">
+        <div id="photos-upload">
+            <i class="material-icons">add
+                <input id="photos-input" type="file" name="photos" multiple="multiple" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
+            </i>
+
+        </div>
+
+        <div id="photos-preview">
+            {% if image %}
+                <div class="photo" id="{{image.id}}">
+                    <img src="{{image.path}}" alt="{{image.name}}">
+                    <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+                </div>
+                <input type="hidden" name="removed_files">
+            {% endif %}
+        </div>
+    </div>
+
+</div>

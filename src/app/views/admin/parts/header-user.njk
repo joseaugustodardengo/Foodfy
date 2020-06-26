@@ -1,0 +1,12 @@
+{% macro user(optionUser, class, classes, nameButton) %}
+
+    <div class="header">
+        <h2>{{optionUser}} usuário</h2>
+        <div class="buttons">
+            <button form="{{classes}}" type="submit" class="{{classes}}">{{nameButton}}</button>
+            <button form="{{class}}" type="submit">Salvar</button>
+        </div>
+    </div>
+
+{% endmacro %}
+

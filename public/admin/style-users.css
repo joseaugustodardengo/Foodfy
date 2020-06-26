@@ -1,0 +1,36 @@
+/*PÁGINA DE REGISTRO DE USUÁRIO*/
+.user .header button.cancel {
+    background: #8A8A8A; 
+    margin-right: 10px;
+}
+
+.input-user {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;    
+}
+
+.error-fields{
+    color: #e74c3c; 
+    font-weight: bold;
+    margin-top: 10px;   
+}
+
+.input-user .item {
+    width: 100%;
+}
+
+.checkbox-user .item input {    
+    width: fit-content;
+    height: 15px;
+    margin-right: 10px;    
+}
+
+.input-user .item:first-child {    
+    margin-right: 10px;    
+}
+
+/*PÁGINA DE PROFILE*/
+.user .item input[type="password"] {
+    width: 465px;
+}

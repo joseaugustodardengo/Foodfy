@@ -1,0 +1,213 @@
+:root {
+    --color-font-primary: #111111;
+    --color-font-secondary: #777777; 
+    --color-font-third: #999999;
+    --color-font-fourth: #444444; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* width: 940px; */
+    margin: auto;
+    font-family: Roboto;
+    position: relative;    
+}
+a {
+    text-decoration: none;
+}
+
+/* CABEÇALHO */
+header {
+    display: flex;    
+    height: 80px;
+    background: var(--color-font-primary);    
+    align-items: center;    
+    margin-bottom: 50px;
+    justify-content: space-evenly;
+}
+
+header div {
+    display: flex;
+    max-width: 940px;
+}
+
+header img {
+    margin-left: 170px;
+}
+
+
+header .menu {
+   margin: auto 124px;    
+}
+
+header .menu ul {
+    display: flex;
+    justify-content: space-between;    
+}
+
+li {
+    list-style: none;
+}
+
+header .menu ul li {
+    margin: auto 30px;    
+}
+
+.logout {
+    margin: inherit;    
+}
+
+.material-icons.logout { color: white; }
+
+header .menu ul li a {
+    color:  var(--color-font-third);
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+header .menu ul li a:hover,
+header .menu ul li a.active{
+    color: white;
+    font-weight: bold;
+}
+
+main {
+    min-height: calc(100vh - 100px - 50px);
+    width: 940px;
+    margin: auto;
+}
+
+button {
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+}
+
+.buttons {
+    display: flex;
+}
+
+.pagination {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.pagination a,
+.pagination span {
+    text-decoration: none;
+    margin-right: 8px;
+    color: var(--color-font-primary);
+}
+
+.pagination a:hover {
+    font-weight: bold;
+    border-bottom: 1px solid var(--color-font-primary);
+}
+
+/* PHOTOS UPLOAD */
+form .item .photos {
+    display: flex;
+    align-items: center;
+}
+
+form .item #photos-upload {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 200px;
+} 
+
+form .item #photos-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+form .item #photos-upload i {
+    background-color: white;    
+    border: 1px solid #DDDDDD;
+    border-radius: 3.5px;
+    color: var(--color-font-third);
+    width: 150px;
+    height: 150px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 300%;
+}
+
+form .item #photos-preview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 8px;
+    width: 100%;
+    margin: 8px 0px;
+}
+
+#photos-preview .photo {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+form .item #photos-preview img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 3.5px;
+}
+
+#photos-preview .photo i {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: rgba(255,255,255,0.8);
+    color: red;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 500%;
+    cursor: pointer;
+    transition: opacity 200ms;
+    opacity: 0;
+}
+
+#photos-preview .photo:hover i {
+    opacity: 1;
+}
+
+/* FOOTER */
+footer {    
+    background: #EEEEEE;
+    height: 62px;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+footer p{
+    display: flex;
+    font-size: 14px;
+    color: var(--color-font-third);
+    justify-content: center;
+    align-items: center;
+    width: 100vh;
+}

@@ -1,0 +1,86 @@
+{% extends "admin/layout.njk" %}
+
+{% block content %}
+
+    <main>
+        <section class="recipe">
+            <div class="header">
+                <h2>Receita:
+                    {{item.title}}</h2>
+                <a href="/admin/recipes/{{item.id}}/edit">
+                    <button>Editar receita</button>
+                </a>
+            </div>
+            <div class="container">
+                <div class="header">
+
+                    <div class="gallery">
+                        <div class="highlight">                            
+                            <img src="{{files[0].path}}" alt="{{files[0].name}}" onclick="Lightbox.open()">                            
+
+                            <div class="lightbox-target">
+                                <img src="{{files[0].path}}" alt="{{files[0].name}}">
+                                <a href="#" class="lightbox-close" onclick="Lightbox.close()">
+                                    <i class="material-icons">close</i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="gallery-preview">
+                            {% for image in files %}
+                                <img src="{{image.path}}" alt="{{image.name}}" {% if loop.index0 == 0 %} class="active" {% endif %} onclick="ImageGallery.setImage(event)">
+                            {% endfor %}
+                        </div>
+                    </div>     
+                                   
+                    <h1 class="title">{{item.title}}</h1>
+                    <p class="subtitle">{{item.chef_name}}</p>
+
+                </div>
+
+                <div class="content">
+                    <div class="header">
+                        <h2>Ingredientes</h2>
+                        {# <button>ESCONDER</button> #}
+                    </div>
+                    <div class="info">
+                        <ul>
+                            {% for ingredient in item.ingredients %}
+                                <li>{{ingredient}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="header">
+                        <h2>Modo de preparo</h2>
+                        {# <button>ESCONDER</button> #}
+                    </div>
+
+                    <div class="info">
+                        <ul>
+                            {% for preparation in item.preparation %}
+                                <li>{{preparation}}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="header">
+                        <h2>Informações adicionais</h2>
+                        {# <button>ESCONDER</button> #}
+                    </div>
+
+                    <div class="info">
+                        <p>{{item.information}}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/admin/scripts.js"></script>
+    <script src="/admin/imagesGallery.js"></script>
+{% endblock %}

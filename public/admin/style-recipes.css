@@ -1,0 +1,315 @@
+/* PÁGINA INDEX RECEITAS */
+.recipes .header,
+.users .header {
+    display: flex;    
+    justify-content: space-between;
+}
+
+.recipes .header h2 {
+    font-size: 24px;
+    color:var(--color-font-primary);   
+    font-weight: bold; 
+}
+
+.recipes .header button,
+.users .header button,
+.recipe .header button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+    background-color: #6558C3;
+    color: white;
+    border-radius: 4px;       
+    padding: 20px 10px;
+    height: 38px;
+    width: 136px;    
+}
+
+.recipe .header button.delete,
+.user .header button.delete {
+    background-color: #DC4747;    
+    margin-right: 10px;
+}
+
+.container .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.container .recipe-card,
+.container .user-card {    
+    width: 300px;
+    position: relative;
+    display: flex;
+
+}
+
+.container .recipe-card .image {    
+    width: 172px;
+    height: 80px;
+    border-radius: 8.5px;
+    object-fit: cover;
+}
+
+.container .recipe-card .info,
+.container .user-card .info {
+    margin-left: 20px;
+}
+
+
+.container .recipe-card .info .title,
+.container .user-card .info .title {
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 5px;
+    color:var(--color-font-primary);   
+
+}
+
+.container .recipe-card .info .subtitle,
+.container .user-card .info .subtitle {
+    font-size: 14px;
+    color: var(--color-font-secondary);    
+}
+
+.container .user-card .info a {
+    font-size: 14px;    
+    color: #6558C3;
+    font-weight: bold;
+    cursor: pointer;
+}
+.container .user-card .info button {
+    background: transparent;
+    font-size: 14px;    
+    color: #DC4747;
+}
+
+.container .recipe-card .info button{
+    background: transparent;
+    font-size: 14px;    
+    color: #6558C3;
+}
+
+/* PÁGINA RECIPES RECEITAS */
+main .about .recipes {
+    margin-top: 50px;
+}
+
+/* PÁGINA DE DETALHE RECIPE - SHOW */
+
+section.recipe .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+section.recipe .container .header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+/* RECIPE SINGLE GALLERY */
+section.recipe .container .header .gallery {
+    width: 100%;
+}
+
+section.recipe .container .header .highlight > img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border: 1px solid #efefef;
+    cursor: zoom-in;
+    margin-bottom: 0;
+}
+
+section.recipe .container .header .gallery-preview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 4px;
+    
+}
+
+section.recipe .container .header .gallery-preview img {
+    height: 150px;
+    width: 100%;
+    object-fit: cover;
+
+    opacity: 0.6;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+section.recipe .container .header .gallery-preview img:hover,
+section.recipe .container .header .gallery-preview img.active {
+    opacity: 1;
+}
+
+/* LIGHTBOX PRODUCT GALLERY */
+section.recipe .container .header .highlight .lightbox-target {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0, .7);
+    overflow: hidden;
+    z-index: 100;
+    left: 0;
+    top: -100%;
+    opacity: 0;
+    transition: opacity 400ms;
+}
+
+section.recipe .container .header .highlight .lightbox-target img {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    background-color: white;
+    box-shadow: 0px 0px 8px tgba(0,0,0,.3);
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+section.recipe .container .header .highlight a.lightbox-close {
+    width: 50px;
+    height: 50px;
+    background: white;
+    position: absolute;
+    top: -80px;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 400ms;
+}
+
+section.recipe li {
+    list-style: disc;
+}
+
+section.recipe .container .header img {
+    height: 280px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+    object-fit: cover;
+}
+
+section.recipe .header .title,
+section.recipe .header .subtitle {
+    text-align: center;
+}
+
+section.recipe .header .title {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--color-font-primary);
+}
+
+section.recipe .header .subtitle {
+    font-size: 20px;
+    color: var(--color-font-secondary);
+}
+
+/* section.recipe .content .header{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+section.recipe .content .header button {
+    background: transparent;
+    margin-left: 8px;
+    font-size: 12px;
+    color: var(--color-font-third);
+} */
+
+.info.active{
+    visibility: hidden;
+    display: none;
+}
+
+section.recipe .content .info {
+    margin-bottom: 40px;
+    font-size: 18px;
+    color: var(--color-font-fourth);
+    line-height: 28px;
+}
+
+/* PÁGINA CREATE RECEITAS */
+form {
+    margin-top: 30px;
+}
+
+form .item {
+    margin-top: 30px;
+}
+
+form .item p {
+    width: fit-content;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--color-font-primary);
+}
+ 
+form .item input,
+form .item select,
+form .item textarea {
+    width: 100%;
+    outline: none;
+    background:white;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 15px 20px;
+    color: var(--color-font-primary);
+}
+
+form .item input {    
+    height: 50px;
+}
+
+form .item .ingredient,
+form .item .preparation {
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+form .item .ingredient input,
+form .item .preparation input {
+    width: 90%;
+}
+
+form .item .ingredient + .ingredient, 
+form .item .preparation + .preparation {
+    margin-top: 10px;
+}
+
+form button {
+    background: transparent;
+    width: fit-content;    
+    margin-top: 15px;
+    font-size: 16px;
+    color: #6558C3;
+    font-weight: bold;
+}
+
+form .item button.delete {
+    color:#DC4747;
+}
+
+form .item textarea {
+    height: 257px;
+}

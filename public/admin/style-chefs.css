@@ -1,0 +1,133 @@
+/* PÁGINA INDEX CHEFS */
+.chefs .header {
+    display: flex;    
+    justify-content: space-between;
+}
+
+.chefs .header h2 {
+    font-size: 24px;
+    color:var(--color-font-primary);   
+    font-weight: bold; 
+}
+
+section.chefs .header button,
+.chef .header button,
+.user .header button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;    
+    background-color: #6558C3;
+    color: white;
+    border-radius: 4px;       
+    padding: 20px 10px;
+    height: 38px;
+    width: 136px;    
+}
+
+.chef .header button.delete {
+    background-color: #DC4747;    
+    margin-right: 10px;
+}
+
+.chefs .container .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.container .chef-card {    
+    width: 300px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.container .chef-card .image {    
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.container .chef-card .info {
+    margin-left: 20px;
+}
+
+
+.container .chef-card .info .title {
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 5px;
+    color:var(--color-font-primary); 
+}
+
+.container .chef-card .info .subtitle {
+    font-size: 14px;
+    color: var(--color-font-secondary);    
+}
+
+.container .chef-card .info button {
+    background: transparent;
+    font-size: 14px;    
+    color: #6558C3;
+}
+
+
+
+/* PÁGINA DE DETALHE CHEF - SHOW */
+section.chef .header,
+section.user .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+section.chef .container .header,
+section.user .container .header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+section.chef li {
+    list-style: disc;
+}
+
+section.chef .container .header img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: auto auto 50px auto;    
+    object-fit: cover;
+}
+
+section.chef .header .title,
+section.chef .header .subtitle {
+    text-align: center;
+}
+
+section.chef .header .title {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--color-font-primary);
+}
+
+section.chef .header .subtitle {
+    font-size: 20px;
+    color: var(--color-font-secondary);
+}
+
+.info.active{
+    visibility: hidden;
+    display: none;
+}
+
+section.chef .content .info {
+    margin-bottom: 40px;
+    font-size: 18px;
+    color: var(--color-font-fourth);
+    line-height: 28px;
+}

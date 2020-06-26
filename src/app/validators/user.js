@@ -73,12 +73,11 @@ async function profile(req, res, next) {
 async function passwordMatch(req, res, next) {    
     const { email, password } = req.body
 
-    let user = await User.findOne({where: {email} })
+    const user = await User.findOne({where: {email} })
 
     const passed = await compare(password, user.password)
 
     if(!passed) {        
-        user = req.body
         req.session.error = 'Senha incorreta'        
         return res.redirect('/admin/profile')
     }

@@ -21,14 +21,13 @@ module.exports = {
     async update(req,res) {
         try {
             const { user } = req
-
-            let { name, email } = req.body
+            
+            let { name } = req.body
 
             let is_admin = req.session.isAdmin
 
             await User.update(user.id, {
                 name,
-                email,
                 is_admin
             })
 

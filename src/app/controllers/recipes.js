@@ -28,12 +28,41 @@ module.exports = {
         }       
         
     },
+
+    async listMyRecipes(req, res) {
+        try {
+            const recipes = await Recipe.findAll()             
+        
+            async function getImage(recipeId) {
+                let file = await Recipe.files(recipeId)               
+            
+                return file[0]
+            }
+    
+            const filesPromiseRecipeFiles = recipes.map(async recipe => {
+                recipe.file = await getImage(recipe.id)
+                return recipe
+            })
+            
+            let filesPromise = await Promise.all(filesPromiseRecipeFiles)   
+            
+            filesPromise = filesPromise.filter(recipe => recipe.user_id == req.session.userId)
+                        
+            return res.render("admin/recipes/index", { items: filesPromise })       
+            
+        } catch (error) {
+            console.error(error)   
+        }     
+    },
     
     async create(req, res) {
-        try {             
+        try {           
+            const error = req.session.error
+            req.session.error = ""
+
             const options = await Chef.findAll()             
     
-            return res.render("admin/recipes/create", {chefOptions: options})
+            return res.render("admin/recipes/create", {chefOptions: options, error})
             
         } catch (error) {
             console.error(error)
@@ -96,8 +125,10 @@ module.exports = {
 
             File.init({ table: 'files' })
 
-            if (req.files.length == 0) {                
-                return res.render("admin/recipes/create", {error: "Por favor, envie pelo menos uma imagem."})
+            if (req.files.length == 0) {     
+                req.session.error = 'Por favor, envie pelo menos uma imagem.'
+    
+                return res.redirect(`/admin/recipes/create`)
             }
     
             const filesPromise = req.files.map(file => File.create({

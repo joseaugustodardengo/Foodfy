@@ -1,13 +1,35 @@
 <header>
     <div>
-        <a href="/admin/recipes"><img src="/admin/logo-white.png" alt=""></a>
+        <a href="/"><img src="/admin/logo-white.png" alt=""></a>
         <nav class="menu">
-            <ul>
-                <li>
-                    <a href="/admin/recipes">Receitas</a>
+            <ul>               
+                <li class="dropdown">
+                    <a href="#">Receitas</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/admin/recipes/dashboard">Minhas receitas</a>
+                            </li>
+                            <li>
+                                <a href="/admin/recipes">Todas receitas</a>
+                            </li>
+                            <li>
+                                <a href="/admin/recipes/create">Criar receita</a>
+                            </li>                        
+                        </ul>
                 </li>
-                <li>
-                    <a href="/admin/chefs">Chefs</a>
+
+                <li class="dropdown">
+                    <a href="#">Chefs</a>
+                        <ul class="submenu">
+                            <li>
+                                <a href="/admin/chefs">Listar</a>
+                            </li>
+                            {% if session.isAdmin %}
+                                <li>
+                                    <a href="/admin/chefs/create">Criar</a>
+                                </li>
+                            {% endif %}
+                        </ul>
                 </li>
 
                 <li class="dropdown">
@@ -16,21 +38,17 @@
                             <li>
                                 <a href="/admin/users">Listar</a>
                             </li>
-                        {% if session.isAdmin %}
-                            <li>
-                                <a href="/admin/users/create">Criar</a>
-                            </li>
-                        {% endif %}
+                            {% if session.isAdmin %}
+                                <li>
+                                    <a href="/admin/users/create">Criar</a>
+                                </li>
+                            {% endif %}
                         </ul>
                 </li>
 
-                <li class="dropdown">
-                    <a href="/admin/profile">Perfil</a>
-                    
-                </li>
                 <li>
-                    <a href="/">Site</a>
-                </li>                
+                    <a href="/admin/profile">Perfil</a>                    
+                </li>                                
             </ul>
         </nav>       
 

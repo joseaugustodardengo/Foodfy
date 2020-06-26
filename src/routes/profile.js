@@ -3,12 +3,11 @@ const routes = express.Router()
 
 const profile = require("../app/controllers/profile")
 const UserValidator = require('../app/validators/user')
+const FieldsValidator = require('../app/validators/fields')
 
 const {onlyUsers } = require('../app/middlewares/session')
 
-
-// Rotas de perfil de um usuário logado
-routes.get('/', onlyUsers, UserValidator.profile, profile.index) // Mostrar o formulário com dados do usuário logado
-routes.put('/', UserValidator.passwordMatch, profile.update)// Editar o usuário logado
+routes.get('/', onlyUsers, UserValidator.profile, profile.index) 
+routes.put('/', onlyUsers, UserValidator.passwordMatch, FieldsValidator.checkAllFields, profile.update)
 
 module.exports = routes

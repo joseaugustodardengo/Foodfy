@@ -10,18 +10,17 @@ module.exports = {
             req.session.error = ''
 
             let usersList = await User.findAll()
-
-            function filterOtherUsers(user) {
-                return user.id != req.session.userId
+            
+            if(req.session.isAdmin) {
+                return res.render("admin/users/index", { users: usersList, error })
             }
-
-            function filterNotAdminUsers(user) {
-                return user.is_admin != true
+            
+            function filterUser(user) {
+                return user.id == req.session.userId
             }
-
-            usersList = usersList.filter(filterOtherUsers)
-            usersList = usersList.filter(filterNotAdminUsers)
-
+        
+            usersList = usersList.filter(filterUser)
+            
             return res.render("admin/users/index", { users: usersList, error })
 
         } catch (error) {
@@ -145,6 +144,12 @@ module.exports = {
 
     async destroy(req, res) {
         try {
+
+            if(req.body.id==req.session.userId){
+                req.session.error = `Você não pode deletar sua própria conta.`
+
+                return res.redirect(`/admin/users/${req.body.id}/edit`)
+            }
 
             await User.delete(req.body.id)            
 
